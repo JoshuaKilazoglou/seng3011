@@ -50,3 +50,4 @@ fabric.properties
 
 # venv
 venv/
+venv3.6/
