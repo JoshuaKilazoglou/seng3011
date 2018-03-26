@@ -18,7 +18,7 @@ def get_page():
     fields = request.args.get('fields')
     params = {'fields' : fields, 'access_token' : access_token}
     print(params)
-    response = requests.get(f'https://graph.facebook.com/v2.11/{company}', params)
+    response = requests.get('https://graph.facebook.com/v2.11/' + company, params)
     return (response.text, response.status_code, response.headers.items())
 
 if __name__ == '__main__':
