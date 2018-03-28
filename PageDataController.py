@@ -2,8 +2,7 @@ from flask_restful import Resource, reqparse
 from Services.PageDataService import PageDataService
 from Services.RequestInfoService import RequestInfoService
 from flask import jsonify
-import jsonpickle
-import json
+
 
 parser = reqparse.RequestParser()
 parser.add_argument('company', type=str, help='Placeholder company help')
