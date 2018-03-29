@@ -28,6 +28,18 @@ def get_page():
     print(params)
     response = requests.get('https://graph.facebook.com/v2.11/' + company, params)
     return (response.text, response.status_code, response.headers.items())
+@app.route('/inputDocs')
+def get_indocs():
+    return render_template("indocs.html")
+@app.route('/exampleDocs')
+def get_exampledocs():
+    return render_template("exampledocs.html")
+@app.route('/outputDocs')
+def get_outdocs():
+    return render_template("outdocs.html")
 
+@app.route('/version')
+def get_version():
+    return render_template("version.html")
 if __name__ == '__main__':
     app.run()
