@@ -8,8 +8,61 @@
 </head>
 
     <h1 class="h2">Example Usage</h1></div>
+Below are examples of using the API in other systems<p></p>
+For more information on input variables, go to the Input Documentation Section<p></p>
+<strong>JQuery</strong>
 
+<pre><code>
+    var parameters = {
+    'company':'WOW.AX',
+    'start': '2015-10-01T08:45:10.295Z',
+    'end': '2015-11-01T19:37:12.193Z'
+    'fields': [
+        'id',
+        'name',
+        'website',
+        'fan_count'
+    ]
+};
 
+// encode parameters in request url
+var url = 'http://seng3011laser.com/api/v1/PageData?' + jQuery.param(parameters);
+
+jQuery.ajax({ url: url, dataType: 'json', contentType: "application/json", success: function(data){ console.log(data); } });
+</code></pre>
+<p></p>
+<strong>Fetch JS</strong>
+<pre><code>
+var url = 'http://seng3011laser.com/v1/company/id/WOW.AX?start=2015-10-01T08:45:10.295Z&end=2015-11-01T19:37:12.193Z&fields=id,name,website,fan_count,post_like_count';
+
+fetch(url, {
+    method: 'Get',
+    Headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+})
+.then(function(response) {
+   return response.json();
+})
+.catch(function(error) {
+    console.log(error);
+});
+
+</code></pre>
 </html>
+<p><strong>Python</strong></p>
+<pre><code>
+parameters = {'company':'WOW.AX', 'start': '2015-10-01T08:45:10.295Z', 'end': '2015-11-01T19:37:12.193Z', 'fields': ['id', 'name', 'website', 'fan_count']}
 
+# encode parameters in request url
+url = 'http://seng3011laser.com/api/v1/PageData?' + urlencode(parameters)
+
+# send request, get response
+response = requests.get(url)
+
+# print response
+print(json.loads(response))
+
+</code></pre>
 {% endblock %}
