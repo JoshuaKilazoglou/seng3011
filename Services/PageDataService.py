@@ -69,6 +69,8 @@ class PageDataService:
         # there's quite a few date formats we can use
         startDate = "4feb2018"
         endDate = "now"
+
+        # limit the number of posts for processing sake. Can remove if we don't want it there
         limit = "20"
 
         request = company + "/posts?since=" + startDate + "&until=" + endDate + "&limit=" + limit
