@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask_restful import Api
-import requests
 from PageDataController import PageDataController
 
 app = Flask(__name__)

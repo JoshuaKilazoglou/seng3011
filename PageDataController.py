@@ -19,6 +19,11 @@ class PageDataController(Resource):
     def get(self):
         args = parser.parse_args(strict=True)  # from my understanding should return 400 if args are not well formed (as defined above)
 
+        company = args['company']
+        startdate = args['startdate']
+        enddate = args['enddate']
+        fields = args['fields']
+
         pageDataResponse = self._pageDataService.getPageData()
         requestInfo = self._requestInfoService.getRequestInfo()
         #  Below is one way we could return the two bits of data we need, i.e. the facebook output the spec provided, and also all that other crap
