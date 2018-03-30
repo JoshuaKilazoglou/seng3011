@@ -36,3 +36,26 @@ class PageDataService:
 
         return response
 
+    def simple(self):
+        # Setting up the API. Graph is our access point to grab information
+        ACCESS_TOKEN = "EAACEdEose0cBAF3L5xQfGmbBfGjHW3u51iyM53ZCev7LLZBEfozwgpvoKpdKF9GZCKa27X8EZC8cJYKhzkbFnCm9sGmpFrZC4fAZBVV6eJDDqbkQnEUUWkDfhehD4fRLqjhOBwR7ZBCvpgvBqO3qUghSAIYfjguI47TWeNUJ0P0I3EMxisBYsSEg5AXC94zxaPQWmXQpIjrZAAZDZD"
+        graph = facebook.GraphAPI(ACCESS_TOKEN)
+
+        # For now using dummy companies/fields to show how it works
+        company = "820882001277849"  # Coca-Cola
+        fields = ['id', 'name', 'posts']
+
+        # building the request. Always start with company and prepare to query fields
+        request = company + "?fields="
+
+        # append fields
+        for field in fields:
+            request = request + field + ","
+
+        # remove last comma
+        request = request[:-1]
+
+        # data is a dict containing the return frmo the api
+        data = graph.request(request)
+
+        return data
