@@ -8,7 +8,73 @@
 </head>
 
     <h1 class="h2">Input Format</h1></div>
+    Our endpoint URL is: <p></p>
+http://seng3011laser.com/api/v1/PageData <p></p>
+<strong>Parameters</strong>
 
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Required</th>
+      <th scope="col">Description</th>
+      <th scope="col">Type</th>
+        <th scope="col">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Company</td>
+      <td>Required</td>
+        <td>This is the <strong>company name</strong> or <strong>unique ID</strong> that the user would like to search for. The input is not case sensitive and will accept both upper and lower case values.</td>
+      <td>String</td>
+        <td>WOW.AX,
+        Woolworths,
+        AMZN,
+        Amazon
+        </td>
+    </tr>
+    <tr>
+      <td>Start</td>
+      <td>Required</td>
+        <td>This is the time selected from which you wish to retrieve data from. <strong>(Must be in the format – “yyyy-MM-ddTHH:mm:ss:SSSZ”)</strong></td>
+      <td>String</td>
+        <td>“2015-10-01T08:45:10.295Z”
+        </td>
+    </tr>
+    <tr>
+      <td>End</td>
+      <td>Required</td>
+        <td>This is the time selected from which you wish to retrieve data to. <strong>(Must be in the format – “yyyy-MM-ddTHH:mm:ss:SSSZ”)</strong></td>
+      <td>String</td>
+        <td>“2015-11-01T19:37:12.193Z”
+        </td>
+    </tr>
+      <tr>
+      <td>Fields</td>
+      <td>Optional (Minimum 1 field is required)</td>
+        <td>The fields allows users to only receive statistics in the fields they have listed. The fields accept each variable separated by a comma. The fields include:
+<strong>id, name, website, description ,category, fan_count, post_type, post_message, post_created_time, post_like_count, post_comment_count</strong>
+</td>
+      <td>String</td>
+        <td>id, name, website, description, category, fan_count
+        </td>
+    </tr>
+  </tbody>
+</table>
+Definitions for terms in fields:<p></p>
+-	Id: the ID of the company interested assigned by Facebook<p></p>
+-	Name: the name of the company interested<p></p>
+-	Website: the website of the company interested<p></p>
+-	Description:  A description on the company interested<p></p>
+-	Category: Determines which category the company is under<p></p>
+-	Fan_count: The amount of people who like and follow the company<p></p>
+The following definitions are for specific statistics on particular posts the company has published.<p></p>
+-	Post_type: The type of post<p></p>
+-	Post_message: The content of the post<p></p>
+-	Post_created_time: The time the post was created<p></p>
+-	Post_like_count: How many likes the post has accumulated<p></p>
+-	Post_comment_count: How many comments the post has<p></p>
 
 {% endblock %}
 </html>
