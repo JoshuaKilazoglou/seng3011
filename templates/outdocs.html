@@ -7,6 +7,39 @@
 
 </head>
 <h1 class="h2">Output Format</h1></div>
-
+Below is an example of a response from the API that requested for data from Woolworths. The API outputs this as a JSON file.
+<pre><code>
+{
+     "Facebook Statistic Data": [
+     {
+        "PageId"": &ltwoolworths&gt,
+        "InstrumentIDs": &ltWOW.AX&gt,
+        “CompanyNames”:&ltwoolworths&gt,
+        "PageName": &ltwoolworths&gt,
+        "Website": &ltwww.woolworths.com.au&gt,
+        "Description ":&lt Welcome to the official Facebook Page for the fresh food people.We’re here Monday to Friday 9am-9pm AEST and Saturday/Sunday 10am to 5pm AEST.&gt,
+        "Category": &ltRetail Company&gt,
+        "fan_count": &lt1,057,425 &gt,
+        "posts [
+        {
+            "post_id": <>,
+            "post_type": <>,
+            "post_message": <>,
+            "post_created_time": <>,
+            "post_like_count": <>,
+            "post_comment_coun": <>
+     }
+]
+</code></pre>
+<p><Strong>Log File</Strong></p>
+<p>The API also outputs a log file which includes the following data</p>
+<ul>
+<li>Developer name</li>
+    <li>Module name and version</li>
+    <li>Parameters passed</li>
+    <li>Success or error indication</li>
+    <li>Error messages if an error occured </li>
+    <li>Start time, end time,elapsed time and output file name if successful</li>
+</ul>
 </html>
 {% endblock %}
