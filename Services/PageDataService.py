@@ -36,14 +36,14 @@ class PageDataService:
 
         return response
 
-    def simple(self):
+    def fields(self):
         # Setting up the API. Graph is our access point to grab information
-        ACCESS_TOKEN = "EAACEdEose0cBAF3L5xQfGmbBfGjHW3u51iyM53ZCev7LLZBEfozwgpvoKpdKF9GZCKa27X8EZC8cJYKhzkbFnCm9sGmpFrZC4fAZBVV6eJDDqbkQnEUUWkDfhehD4fRLqjhOBwR7ZBCvpgvBqO3qUghSAIYfjguI47TWeNUJ0P0I3EMxisBYsSEg5AXC94zxaPQWmXQpIjrZAAZDZD"
+        ACCESS_TOKEN = "EAACEdEose0cBAHEzkmxSLzi3O7upORZB1rTnPqBQDRclWRNFkdBFglVw15MjR1vCWTPmc5qekkj2o2aOY5efgZAPKa5xmCQmiIZBuquI2CD4xhVdzoZBt38PGy1BsnZBtjhCckpZARXnHAAj9EvjSe0ZBGZC6C0iZBJzRPaROjyZCbJZAlG27Cxy4bZBukThYikObzpAZBGq7EvOTuQZDZD"
         graph = facebook.GraphAPI(ACCESS_TOKEN)
 
         # For now using dummy companies/fields to show how it works
         company = "820882001277849"  # Coca-Cola
-        fields = ['id', 'name', 'posts']
+        fields = ['id', 'name']
 
         # building the request. Always start with company and prepare to query fields
         request = company + "?fields="
@@ -59,3 +59,31 @@ class PageDataService:
         data = graph.request(request)
 
         return data
+
+    def posts(selfs):
+        ACCESS_TOKEN = "EAACEdEose0cBAHEzkmxSLzi3O7upORZB1rTnPqBQDRclWRNFkdBFglVw15MjR1vCWTPmc5qekkj2o2aOY5efgZAPKa5xmCQmiIZBuquI2CD4xhVdzoZBt38PGy1BsnZBtjhCckpZARXnHAAj9EvjSe0ZBGZC6C0iZBJzRPaROjyZCbJZAlG27Cxy4bZBukThYikObzpAZBGq7EvOTuQZDZD"
+        graph = facebook.GraphAPI(ACCESS_TOKEN)
+
+        company = "820882001277849"  # Coca-Cola
+
+        # there's quite a few date formats we can use
+        startDate = "4feb2018"
+        endDate = "now"
+        limit = "20"
+
+        request = company + "/posts?since=" + startDate + "&until=" + endDate + "&limit=" + limit
+
+        data = graph.request(request)
+
+        return data
+
+
+
+
+
+
+
+
+
+
+
