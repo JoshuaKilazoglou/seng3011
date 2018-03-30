@@ -55,3 +55,5 @@ venv3.6/
 *.pyc
 .idea/3011.iml
 .idea/misc.xml
+
+.idea/
