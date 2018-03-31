@@ -21,20 +21,9 @@ For more information on input variables, go to the Input Documentation Section<p
 <strong>Using JQuery from JavaScript</strong>
 </a>
 <pre><code>
-    var parameters = {
-    'company':'WOW.AX',
-    'startdate': '2015-10-01T08:45:10.295Z',
-    'enddate': '2015-11-01T19:37:12.193Z'
-    'fields': [
-        'id',
-        'name',
-        'website',
-        'fan_count'
-        ]
-    };
 
-    // encode parameters in request url
-    var url = 'http://seng3011laser.com/api/v1/PageData?' + jQuery.param(parameters);
+
+    var url = 'http://seng3011laser.com/api/v1/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website'
 
     jQuery.ajax({ url: url, dataType: 'json', contentType: "application/json", success: function(data){ console.log(data); } });
 </code></pre>
@@ -44,7 +33,7 @@ For more information on input variables, go to the Input Documentation Section<p
 <strong>Using Fetch from JavaScript</strong>
 </a>
 <pre><code>
-    var url = 'http://seng3011laser.com/v1/company/id/WOW.AX?startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,website,fan_count,post_like_count';
+    var url = 'http://seng3011laser.com/v1/company/id/woolworths?startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,website,fan_count,post_like_count';
 
     fetch(url, {
         method: 'Get',
@@ -64,15 +53,14 @@ For more information on input variables, go to the Input Documentation Section<p
 
 <pre><code>
     import requests
-    from urllib.parse import urlencode
+    import json
 
-    parameters = {'company':'WOW.AX', 'startdate': '2015-10-01T08:45:10.295Z', 'enddate': '2015-11-01T19:37:12.193Z', 'fields': ['id', 'name', 'website', 'fan_count']}
-
+    url = 'http://seng3011laser.com/api/v1/PageData?'
+    parameters = 'company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website'
     # encode parameters in request url
-    url = 'http://seng3011laser.com/api/v1/PageData?' + urlencode(parameters)
 
     # send request, get response
-    response = requests.get(url)
+    response = requests.get(url,params=parameters)
 
     # print response
     print(response.json())
