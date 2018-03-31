@@ -1,40 +1,33 @@
 from Models.PageDataModel import PageDataModel, PostModel
+import facebook
+import requests
+import jsonpickle
 
 #############################################
 #  This is where facebook graph API calls will go (and maybe other business logic)
 #############################################
 class PageDataService:
 
-    # main method, returns a single "PageDataModel" object
-    def getPageData(self):
-        #  dummy data for now
+    def getPageData(self, company, startdate, enddate, fields):
 
-        post1 = PostModel()
-        post2 = PostModel()
+        access_token = '2019883274951221|1c9281343bdcde168cdad00e354fd2aa'
 
-        post1.post_id = '1',
-        post1.post_type = 'video'
-        post1.post_message = 'cool video'
-        post1.post_created_time = '1/2/2001'
-        post1.post_comment_coun = '1223'
+        params = {'fields': ','.join(fields), 'access_token': access_token}
+        response = requests.get('https://graph.facebook.com/v2.11/' + company, params)
+        responseDict = jsonpickle.decode(response.text)
 
-        post2.post_id = '2',
-        post2.post_type = 'text'
-        post2.post_message = 'cool text'
-        post2.post_created_time = '1/2/2008'
-        post2.post_comment_coun = '222'
+        pageData = PageDataModel()
+        pageData.pageId = responseDict['id'] if 'id' in fields else None,
+        pageData.companyName = responseDict['name'] if 'name' in fields else None,
+        pageData.instrumentID = 'Unknown',
+        pageData.pageName = responseDict['name'] if 'name' in fields else None,
+        pageData.website = responseDict['website'] if 'website' in fields else None,
+        pageData.description = responseDict['description'] if 'description' in fields else None,
+        pageData.category = responseDict['category'] if 'category' in fields else None,
+        pageData.fan_count = responseDict['fan_count'] if 'fan_count' in fields else None,
+        pageData.posts = None
 
-        response = PageDataModel()
-        response.pageId = "Id",
-        response.companyNames = ['Name1']
-        response.instrumentIDs = ['InstrumentId1']
-        response.pageName = 'page name'
-        response.website = 'www.pornhub.com'
-        response.description = 'a cool page'
-        response.fan_count = 123123
-        response.posts = [post1, post2]
-
-        return response
+        return pageData
 
     def fields(self):
         # Setting up the API. Graph is our access point to grab information
