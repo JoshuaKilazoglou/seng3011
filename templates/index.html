@@ -49,19 +49,82 @@
                 {% block body_contents %}
             <h1 class="h2">SENG3011 - Laser</h1>
             </div>
-                <P class="text-center">    <strong>Current API version: v1 Released on 28/3/18 </strong></P><p></p>
-                 <P class="text-center">Check the Version and Changelog section for more details  </P>
-                <P class="text-center">
-                    <strong>We are Team Laser from the course SENG3011.</strong>
-                </P>
-                <p class="text-center">
-                    The members include: Felix, Daniel, Josh, Ryan, Zhizhen!
-                    <br><br>
-                    Please be patient as we develop our sample API! Thank you. (Hosted on DigitalOcean)
-                </p>
-                <p class="text-center">
-                    <a href="https://github.com/JoshuaKilazoglou/seng3011">https://github.com/JoshuaKilazoglou/seng3011</a>
-                </p>
+                    <!-- Form with company, from, to -->
+            <form method="POST" action="{{ url_for('gui') }}">
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" name="company" class="form-control"  placeholder="Company Name">
+                  <p class = "text-danger">{{ companyError }}</p>
+              </div>
+              <div class="form-group">
+                <label for="startDate">From</label>
+                <input type="text" name="startdate" class="form-control"  placeholder="Date">
+                  <p class = "text-danger">{{ startError }}</p>
+              </div>
+                <div class="form-group">
+                <label for="endDate">To</label>
+                <input type="text" name="enddate" class="form-control"  placeholder="Date">
+                    <p class = "text-danger">{{ endError }}</p>
+              </div>
+                <!-- Options to turn on fields with checkboxes -->
+                Fields
+               <div>
+              <div class="form-check-inline" >
+                <input type="checkbox" name="fans" class="form-check-input">
+                <label class="form-check-label">Fan Count</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="category" class="form-check-input">
+                <label class="form-check-label">Category</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="description" class="form-check-input">
+                <label class="form-check-label">Description</label>
+              </div>
+
+               </div>
+               <div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="id" class="form-check-input">
+                <label class="form-check-label">ID</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="name" class="form-check-input">
+                <label class="form-check-label">Name</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="website" class="form-check-input" >
+                <label class="form-check-label">Website</label>
+              </div>
+               </div>
+               <div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="type" class="form-check-input" >
+                <label class="form-check-label">Type</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="message" class="form-check-input" >
+                <label class="form-check-label">Message</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="time" class="form-check-input" >
+                <label class="form-check-label">Created Time</label>
+              </div>
+               </div>
+                <!-- Fields for the posts -->
+                                Post Fields
+               <div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="likes" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Like Count </label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="comments" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Comment Count</label>
+              </div>
+               </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
                 {% endblock %}
             </main>
         </div>

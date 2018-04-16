@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 from flask_restful import Api
 from PageDataController import PageDataController
+from flask import redirect
 
 app = Flask(__name__)
 api = Api(app)
@@ -31,5 +32,17 @@ def get_outdocs():
 @app.route('/version')
 def get_version():
     return render_template("version.html")
+
+@app.route('/gui' , methods=['POST'])
+def gui():
+    company = request.form.get('company')
+    startdate = request.form.get('startdate')
+    enddate = request.form.get('enddate')
+   # description = request.form.get('description')
+    url = 'http://seng3011laser.com/api/v1/PageData?company=' + company + '&startdate=' +startdate + '&enddate=' + enddate + "&fields=description,fan_count"
+    print(url)
+   # return render_template("gui.html", company1 = company,desc = description)
+    return redirect(url, code=302)
+
 if __name__ == '__main__':
     app.run()
