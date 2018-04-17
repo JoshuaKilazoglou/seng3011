@@ -1,4 +1,4 @@
-from Models.PageDataModel import PageDataModel, PostModel
+from V1.Models.PageDataModel import PageDataModel
 import facebook
 import requests
 import jsonpickle

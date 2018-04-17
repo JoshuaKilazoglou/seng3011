@@ -1,4 +1,4 @@
-from Models.RequestInfoModel import RequestInfoModel
+from V1.Models.RequestInfoModel import RequestInfoModel
 
 class RequestInfoService:
     # Just gets the additional log and request info that the spec asks for
