@@ -70,57 +70,57 @@
                 Fields
                <div>
               <div class="form-check-inline" >
-                <input type="checkbox" name="fans" class="form-check-input">
+                <input type="checkbox" name="fans" value="fan_count" class="form-check-input">
                 <label class="form-check-label">Fan Count</label>
               </div>
               <div class="form-check-inline">
-                <input type="checkbox" name="category" class="form-check-input">
+                <input type="checkbox" name="category" value="category" class="form-check-input">
                 <label class="form-check-label">Category</label>
               </div>
               <div class="form-check-inline">
-                <input type="checkbox" name="description" class="form-check-input">
+                <input type="checkbox" name="description" value="description"  class="form-check-input">
                 <label class="form-check-label">Description</label>
               </div>
 
                </div>
                <div>
               <div class="form-check-inline">
-                <input type="checkbox" name="id" class="form-check-input">
+                <input type="checkbox" name="id" value="id" class="form-check-input">
                 <label class="form-check-label">ID</label>
               </div>
               <div class="form-check-inline">
-                <input type="checkbox" name="name" class="form-check-input">
+                <input type="checkbox" name="name" value="name" class="form-check-input">
                 <label class="form-check-label">Name</label>
               </div>
               <div class="form-check-inline">
-                <input type="checkbox" name="website" class="form-check-input" >
+                <input type="checkbox" name="website" value="website" class="form-check-input" >
                 <label class="form-check-label">Website</label>
               </div>
                </div>
                <div>
-              <div class="form-check-inline">
-                <input type="checkbox" name="type" class="form-check-input" >
-                <label class="form-check-label">Type</label>
-              </div>
-              <div class="form-check-inline">
-                <input type="checkbox" name="message" class="form-check-input" >
-                <label class="form-check-label">Message</label>
-              </div>
-              <div class="form-check-inline">
-                <input type="checkbox" name="time" class="form-check-input" >
-                <label class="form-check-label">Created Time</label>
-              </div>
                </div>
                 <!-- Fields for the posts -->
                                 Post Fields
                <div>
               <div class="form-check-inline">
-                <input type="checkbox" name="likes" class="form-check-input" id="exampleCheck1">
+                <input type="checkbox" name="type" value="post_type" class="form-check-input" >
+                <label class="form-check-label">Type</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="likes" class="form-check-input" value="post_like_count">
                 <label class="form-check-label" for="exampleCheck1">Like Count </label>
               </div>
               <div class="form-check-inline">
-                <input type="checkbox" name="comments" class="form-check-input" id="exampleCheck1">
+                <input type="checkbox" name="comments" class="form-check-input" value="post_comment_count">
                 <label class="form-check-label" for="exampleCheck1">Comment Count</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="time" value="post_created_time" class="form-check-input" >
+                <label class="form-check-label">Created Time</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="checkbox" name="message" value="post_message" class="form-check-input" >
+                <label class="form-check-label">Message</label>
               </div>
                </div>
               <button type="submit" class="btn btn-primary">Submit</button>

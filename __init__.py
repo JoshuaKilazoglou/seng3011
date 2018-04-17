@@ -38,13 +38,13 @@ def get_version():
 
 @app.route('/gui' , methods=['POST'])
 def gui():
-    company = request.form.get('company')
-    startdate = request.form.get('startdate')
-    enddate = request.form.get('enddate')
+
+    company = str.strip(request.form.get('company'))
+    startdate = str.strip(request.form.get('startdate'))
+    enddate = str.strip(request.form.get('enddate'))
    # description = request.form.get('description')
     url = 'http://seng3011laser.com/api/v1/PageData?company=' + company + '&startdate=' +startdate + '&enddate=' + enddate + "&fields=description,fan_count"
-
-    # encode parameters in request url
+    print(request.form.get('fans'))
 
     # send request, get response
     response = requests.get(url)
