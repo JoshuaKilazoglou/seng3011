@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import requests
 from flask_restful import Api
+import json
+
 from PageDataController import PageDataController
-from flask import redirect
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -40,9 +43,16 @@ def gui():
     enddate = request.form.get('enddate')
    # description = request.form.get('description')
     url = 'http://seng3011laser.com/api/v1/PageData?company=' + company + '&startdate=' +startdate + '&enddate=' + enddate + "&fields=description,fan_count"
-    print(url)
-   # return render_template("gui.html", company1 = company,desc = description)
-    return redirect(url, code=302)
+
+    # encode parameters in request url
+
+    # send request, get response
+    response = requests.get(url)
+
+
+
+
+    return render_template("gui.html", company1 = response.json() )
 
 if __name__ == '__main__':
     app.run()
