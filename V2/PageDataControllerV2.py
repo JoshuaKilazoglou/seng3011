@@ -3,7 +3,8 @@ from V2.Services.PageDataService import PageDataService
 from V2.Services.RequestInfoService import RequestInfoService
 from flask import jsonify
 from datetime import datetime
-
+import re
+import sys
 
 parser = reqparse.RequestParser()
 parser.add_argument('company', type=str, help='Placeholder company help')
@@ -25,15 +26,29 @@ class PageDataControllerV2(Resource):
         page = args['company']
         start_date_string = args['startdate']
         end_date_string = args['enddate']
-        fields = args['fields'].split(',')
-        page_fields = None #TODO
-        post_fields = None #TODO
+        fields_string = args['fields']
+
+        try:
+            post_section = re.search('posts.fields\([\w,]*\)', fields_string)[0]
+            post_section_trimmed = post_section[13:-1]
+            post_fields = post_section_trimmed.split(',')
+            fields_string = re.sub('posts.fields\([\w,]*\)','', fields_string)
+            fields_string = re.sub('(,\s){2,}', ',', fields_string)
+            fields_string = re.sub('(^,|,$)', '', fields_string, )
+            page_fields = fields_string.split(',')
+        except Exception as err:
+            print(err,file=sys.stdout)
+            return self.error(400, 'Malformed parameter/s')
+
+
+
 
         params = {
             'page': page,
             'startdate': start_date_string,
             'enddate': end_date_string,
-            'fields': fields
+            'pageFields': page_fields,
+            'postFields': post_fields
         }
         self._request_info_service.start(params)
 
@@ -43,18 +58,13 @@ class PageDataControllerV2(Resource):
         except:
             return self.error(400, 'Datetime strings must be formatted: yyyy-MM-ddTHH:mm:ss.SSSZ')
 
-
-        #
-        # ...
-        #
-
-        page_data_response = self._page_data_service.get_page_data(page, start_date, end_date, fields, post_fields)
+        page_data_response = self._page_data_service.get_page_data(page, start_date, end_date, page_fields, post_fields)
 
         return self.success(page_data_response)
 
     def error(self, code, message):
         return jsonify({
-            'Facebook Statistic Data': None,
+            'Facebook Statistic Data': 'Error',
             'Request Information': self._request_info_service.get_with_error_info(code, message)
         })
 

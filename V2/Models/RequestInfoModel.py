@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 
 class RequestInfoModel:
     def __init__(self):
@@ -10,12 +11,13 @@ class RequestInfoModel:
         self.parameters = None
         self.start_date_time = None
         self.end_date_time = None
-        self.time_elapsed = None
+        self.seconds_elapsed = None
         self.output_file_name = "pageData.json"
 
     def finish_request(self):
         self.end_date_time = datetime.now()
-        self.time_elapsed = self.start_date_time = self.end_date_time
+        time_delta = self.end_date_time - self.start_date_time
+        self.seconds_elapsed = time_delta.total_seconds()
 
     def start_request(self):
         self.start_date_time = datetime.now()

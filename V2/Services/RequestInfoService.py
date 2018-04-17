@@ -32,9 +32,9 @@ class RequestInfoService:
             'Parameters': self.request_info_model.parameters,
             'Successful': True,
             'Details': {
-                'StartDateTime': self.request_info_model.start_date_time,
-                'EndDateTime': self.request_info_model.end_date_time,
-                'ElapsedTime': self.request_info_model.time_elapsed,
+                'StartDateTime': self.request_info_model.start_date_time.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3],
+                'EndDateTime': self.request_info_model.end_date_time.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3],
+                'ElapsedTime': str(self.request_info_model.seconds_elapsed) + ' seconds',
                 'OutputFileName': self.request_info_model.output_file_name
             }
         }
