@@ -29,7 +29,7 @@ class PageDataControllerV2(Resource):
         fields_string = args['fields']
 
         try:
-            post_section = re.search('posts.fields\([\w,]*\)', fields_string)[0]
+            post_section = re.search('posts.fields\([\w,]*\)', fields_string).group(0)
             post_section_trimmed = post_section[13:-1]
             post_fields = post_section_trimmed.split(',')
             fields_string = re.sub('posts.fields\([\w,]*\)','', fields_string)
