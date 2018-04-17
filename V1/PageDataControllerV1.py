@@ -1,7 +1,7 @@
-from flask_restful import Resource, reqparse, abort
-from Services.PageDataService import PageDataService
-from Services.RequestInfoService import RequestInfoService
-from flask import jsonify, Response
+from flask_restful import Resource, reqparse
+from V1.Services.PageDataService import PageDataService
+from V1.Services.RequestInfoService import RequestInfoService
+from flask import jsonify
 from datetime import datetime
 
 
@@ -12,7 +12,7 @@ parser.add_argument('enddate', type=str)
 parser.add_argument('fields', type=str)  # needs work
 
 
-class PageDataController(Resource):
+class PageDataControllerV1(Resource):
 
     _pageDataService = PageDataService()
     _requestInfoService = RequestInfoService()

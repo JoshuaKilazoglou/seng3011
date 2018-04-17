@@ -3,18 +3,17 @@ from flask import render_template
 from flask import request
 import requests
 from flask_restful import Api
-import json
-
-from PageDataController import PageDataController
+from V1.PageDataControllerV1 import PageDataControllerV1
+from V2.PageDataControllerV2 import PageDataControllerV2
+from flask import redirect
 
 
 app = Flask(__name__)
 api = Api(app)
 
-apiVersion = 'v1'
-
 # create endpoints like this with flask_restful
-api.add_resource(PageDataController, '/api/' + apiVersion + '/PageData')
+api.add_resource(PageDataControllerV1, '/api/v1/PageData')
+api.add_resource(PageDataControllerV2, '/api/v2/PageData')
 
 @app.route('/')
 def home():
