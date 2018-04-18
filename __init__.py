@@ -118,7 +118,7 @@ def gui():
     # send request, get response
     print(url)
     response = requests.get(url)
-
+    print(response.json()['Facebook Statistic Data']['CompanyName'])
     return render_template("gui.html", company1 = response.json() )
 
 

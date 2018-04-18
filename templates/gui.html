@@ -6,8 +6,17 @@
     <meta charset="UTF-8">
 
 </head>
-<h1 class="h2">Version & Changelog </h1></div>
-{{ company1 }}
+<h1 class="h2">Facebook Statistic Data </h1></div>
 
+{% for fieldkey in company1['Facebook Statistic Data'] %}
+    {% if fieldkey != 'posts' %}
+        <p>{{ fieldkey }} : {{ company1['Facebook Statistic Data'][fieldkey] }}</p>
+    {% endif %}
+    {% if fieldkey == 'posts' %}
+        {% for postkey in company1['Facebook Statistic Data'][fieldkey] %}
+            <p>{{ postkey }}</p>
+        {% endfor %}
+    {% endif %}
+{% endfor %}
 </html>
 {% endblock %}
