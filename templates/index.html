@@ -52,17 +52,17 @@
                     <!-- Form with company, from, to -->
             <form method="POST" action="{{ url_for('gui') }}">
               <div class="form-group">
-                <label for="company">Company</label>
+                <label for="company">*Company</label>
                 <input type="text" name="company" class="form-control"  placeholder="Company Name">
                   <p class = "text-danger">{{ companyError }}</p>
               </div>
               <div class="form-group">
-                <label for="startDate">From</label>
+                <label for="startDate">*From</label>
                 <input type="text" name="startdate" class="form-control"  placeholder="Date">
                   <p class = "text-danger">{{ startError }}</p>
               </div>
                 <div class="form-group">
-                <label for="endDate">To</label>
+                <label for="endDate">*To</label>
                 <input type="text" name="enddate" class="form-control"  placeholder="Date">
                     <p class = "text-danger">{{ endError }}</p>
               </div>
@@ -123,7 +123,9 @@
                 <label class="form-check-label">Message</label>
               </div>
                </div>
+
               <button type="submit" class="btn btn-primary">Submit</button>
+                <small>* fields are required</small>
             </form>
                 {% endblock %}
             </main>
