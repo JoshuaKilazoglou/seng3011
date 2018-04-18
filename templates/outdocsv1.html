@@ -6,14 +6,13 @@
     <meta charset="UTF-8">
 
 </head>
-<h1 class="h2">Output Format V2</h1></div>
-
+<h1 class="h2">Output Format V1</h1></div>
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link active" href="{{ url_for('get_outdocs') }}">V2</a>
+        <a class="nav-link" href="{{ url_for('get_outdocs') }}">V2</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('get_outdocs',version='v1') }}">V1</a>
+        <a class="nav-link active" href="{{ url_for('get_outdocs',version='v1') }}">V1</a>
       </li>
     </ul>
     <p></p>
@@ -22,52 +21,38 @@ Below is an example of a response from the API that requested for data from Wool
 
 <pre><code>
 {
-  "Facebook Statistic Data": {
-    "CompanyName": "Woolworths Group Limited",
-    "FanCount": 1059409,
-    "InstrumentID": "WOW.AX",
-    "PageId": "147632815308858",
-    "PageName": "Woolworths",
-    "Website": "http://www.woolworths.com.au",
-    "posts": [
-      {
-        "post_comment_count": 18,
-        "post_created_time": "2015-11-02T06:00:00+0000",
-        "post_id": "147632815308858_966338970104901",
-        "post_message": "Race into store to speak with our Deli Team about the perfect Melbourne Cup entertaining platter, start the celebration with a winner!",
-        "post_type": "photo"
-      }
-    ]
-  }, 
-  "Request Information": {
-    "Details": {
-      "ElapsedTime": "1.703228 seconds",
-      "EndDateTime": "2018-04-18 06:53:44.397",
-      "OutputFileName": "pageData.json",
-      "StartDateTime": "2018-04-18 06:53:42.694"
-    },
-    "DevTeam": "laser",
-    "ModuleName": "pageData",
-    "ModuleVersion": "v2",
-    "Parameters": {
-      "enddate": "2015-11-02T19:37:12.193Z",
-      "page": "woolworths",
-      "pageFields": [
-        "id",
-        "name",
-        "fan_count",
-        "website"
-      ],
-      "postFields": [
-        "post_comment_count",
-        "post_type",
-        "post_message",
-        "post_created_time"
-      ],
-      "startdate": "2015-10-01T08:45:10.295Z"
-    },
-    "Successful": true
-  }
+     "Facebook Statistic Data":
+     {
+        "PageId"": woolworths,
+        "InstrumentIDs": WOW.AX,
+        “CompanyNames”:woolworths,
+        "PageName": woolworths,
+        "Website": www.woolworths.com.au,
+        "Description ":Welcome to the official Facebook Page for the fresh food people.We’re here Monday to Friday 9am-9pm AEST and Saturday/Sunday 10am to 5pm AEST,
+        "Category": Retail Company,
+        "fan_count": 1,057,425 ,
+        "posts [
+        {
+            "post_id": <>,
+            "post_type": <>,
+            "post_message": <>,
+            "post_created_time": <>,
+            "post_like_count": <>,
+            "post_comment_count": <>
+        }
+        ]
+     }
+    "Request Information": {
+        "moduleName": "PageData",
+        "moduleVersion": "v1",
+        "parameters": {
+          "company": "woolworths",
+          "enddate": "2015-11-01T19:37:12.193Z",
+          "fields": "description,fan_count,website",
+          "startdate": "2015-10-01T08:45:10.295Z"
+        },
+        "team": "Laser"
+    }
 }
 </code></pre>
 

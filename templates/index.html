@@ -20,12 +20,12 @@
                                 Home <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                            <a class="nav-link active" href="{{ url_for('get_indocs') }}">
+                            <a class="nav-link active" href="{{ url_for('get_indocs',version='') }}">
                                 Input Documentation <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('get_outdocs') }}">
+                            <a class="nav-link" href="{{ url_for('get_outdocs',version='') }}">
                                 Output Documentation
                             </a>
                         </li>

@@ -26,7 +26,14 @@ def home():
 
 @app.route('/inputDocs')
 def get_indocs():
-    return render_template("indocs.html")
+    version = request.args.get('version')
+    if version == None:
+        return render_template("indocs.html")
+    doc = "indocs" + version + ".html"
+    print(doc)
+    return render_template(doc)
+
+
 
 @app.route('/exampleDocs')
 def get_exampledocs():
@@ -34,7 +41,13 @@ def get_exampledocs():
 
 @app.route('/outputDocs')
 def get_outdocs():
-    return render_template("outdocs.html")
+    version = request.args.get('version')
+    if version == None:
+        return render_template("outdocs.html")
+    doc = "outdocs" + version + ".html"
+    print(doc)
+    return render_template(doc)
+
 
 @app.route('/version')
 def get_version():

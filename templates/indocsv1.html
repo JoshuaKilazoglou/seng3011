@@ -1,4 +1,4 @@
-   {% extends "index.html" %}
+{% extends "index.html" %}
 {% block body_contents %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,19 +7,18 @@
 
 </head>
 
-    <h1 class="h2">Input Format</h1></div>
+    <h1 class="h2">Input Format </h1></div>
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link active" href="{{ url_for('get_indocs') }}">V2</a>
+        <a class="nav-link" href="{{ url_for('get_indocs') }}">V2</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('get_indocs',version='v1') }}">V1</a>
+        <a class="nav-link active" href="{{ url_for('get_indocs',version='v1') }}">V1</a>
       </li>
     </ul>
     <p></p>
-
     Our endpoint URL is: <p></p>
-http://seng3011laser.com/api/v2/PageData <p></p>
+http://seng3011laser.com/api/v1/PageData <p></p>
     All input parameters should be in lower case and spaces are not accepted (Should be replaced with a hyphen or underscore). <p></p>
 <strong>Parameters</strong>
 
@@ -37,9 +36,12 @@ http://seng3011laser.com/api/v2/PageData <p></p>
     <tr>
       <td>Company</td>
       <td>Required</td>
-        <td>This is the <strong>Facebook page name</strong> </td>
+        <td>This is the <strong>company name</strong> or <strong>unique ID</strong> that the user would like to search for. </td>
       <td>String</td>
-        <td>woolworths, mcdonalds
+        <td>WOW.AX,
+        Woolworths,
+        AMZN,
+        Amazon
         </td>
     </tr>
     <tr>
@@ -62,18 +64,10 @@ http://seng3011laser.com/api/v2/PageData <p></p>
       <td>Fields</td>
       <td>Optional (Minimum 1 field is required)</td>
         <td>The fields allows users to only receive statistics in the fields they have listed. The fields accept each variable separated by a comma. The fields include:
-    <strong>id, name, website, description ,category, fan_count</strong>
-    </td>
+<strong>id, name, website, description ,category, fan_count, post_type, post_message, post_created_time, post_like_count, post_comment_count</strong>
+</td>
       <td>String</td>
         <td>id, name, website, description, category, fan_count
-        </td>
-    </tr>
-    <tr>
-      <td>Post Fields</td>
-      <td>Optional</td>
-        <td>Fields related to posts on the page. Post fields include: <strong>post_type, post_message, post_created_time, post_like_count, post_comment_count</strong> </td>
-      <td>String</td>
-        <td>post_type,post_message
         </td>
     </tr>
   </tbody>
@@ -82,6 +76,7 @@ http://seng3011laser.com/api/v2/PageData <p></p>
    <p>This query is requesting statistics from the company: 'woolworths' from  October 1st 2015 at 8:45 until November 1st 2015 at 19:37</p>
     <p> To add fields to the this example, such as requesting the company's website, description and fan_count, we append the fields onto the end like so </p>
    <pre><code> <p> http://seng3011laser.com/api/v1/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=description,fan_count,website </p></code></pre>
+
     <strong>Definitions for terms in fields: </strong><p></p>
 -	Id: the ID of the company interested assigned by Facebook<p></p>
 -	Name: the name of the company interested<p></p>
