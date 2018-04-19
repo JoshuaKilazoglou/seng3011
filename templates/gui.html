@@ -6,15 +6,44 @@
     <meta charset="UTF-8">
 
 </head>
-<h1 class="h2">Facebook Statistic Data </h1></div>
+<h1 class="h2 text-primary">Facebook Statistic Data </h1></div>
 
 {% for fieldkey in company1['Facebook Statistic Data'] %}
     {% if fieldkey != 'posts' %}
-        <p>{{ fieldkey }} : {{ company1['Facebook Statistic Data'][fieldkey] }}</p>
+        <div class="card mb-3" >
+          <div class="card-body">
+             <h5 class="card-title text-primary">{{ fieldkey }}</h5>
+            <p class="card-text ">{{ company1['Facebook Statistic Data'][fieldkey] }}</p>
+          </div>
+        </div>
+
     {% endif %}
     {% if fieldkey == 'posts' %}
         {% for postkey in company1['Facebook Statistic Data'][fieldkey] %}
-            <p>{{ postkey }}</p>
+            <div class="card mb-3" >
+               <div class="card-body">
+            {% for postkeykey in postkey %}
+
+
+                    <h5 class="card-title text-primary">{{ postkeykey }}</h5>
+                    <p class="card-text">{{ postkey[postkeykey] }}</p>
+
+            {% endfor %}
+               </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+<h1 class="h2 text-primary">Request Information</h1>
+{% for detail in company1['Request Information'] %}
+    {% if detail != 'Details' and detail != 'Parameters'  %}
+        <strong> {{ detail }}</strong>
+        <p>{{ company1['Request Information'][detail] }}</p>
+    {% endif %}
+    {% if detail == 'Details' or detail == 'Parameters'  %}
+        <strong> {{ detail }}</strong>
+        {% for detail2 in company1['Request Information'][detail] %}
+             <p>{{ detail2 }} : {{ company1['Request Information'][detail][detail2] }}</p>
         {% endfor %}
     {% endif %}
 {% endfor %}
