@@ -11,7 +11,7 @@ from aylienapiclient import textapi
 
 app = Flask(__name__)
 api = Api(app)
-Bower(app)
+
 client = textapi.Client("84fb5f8e", "42902aee45567b5e27375393a0ac4c70")
 # create endpoints like this with flask_restful
 api.add_resource(PageDataControllerV1, '/api/v1/PageData')
