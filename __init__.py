@@ -123,8 +123,10 @@ def gui():
     if loopCount == 0:
         postfields = ",posts.fields()"
 
-    if fields == None:
+    if fields == None and postfields == None:
         url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' +startdate + '&enddate=' + enddate
+    elif fields == None and postfields != None:
+        url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' + startdate + '&enddate=' + enddate + "&fields=" + postfields
     elif postfields == None:
         url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' + startdate + '&enddate=' + enddate + fields
     else:
@@ -132,11 +134,6 @@ def gui():
     # send request, get response
     print(url)
     response = requests.get(url)
-    print(response.json()['Facebook Statistic Data']['posts'][1]['post_message'])
-
-
-
-
 
     responseDict = response.json()
 
