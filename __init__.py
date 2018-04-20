@@ -139,7 +139,8 @@ def gui():
 
     responseDict = response.json()
 
-    if message != None:
+    if message != None and responseDict['Facebook Statistic Data'] != 'Error':
+
         for key,value in enumerate(responseDict['Facebook Statistic Data']['posts']):
             sentiment = client.Sentiment({'text': value['post_message'] })
             responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
