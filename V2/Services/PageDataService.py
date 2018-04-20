@@ -12,7 +12,9 @@ class PageDataService:
     _ACCESS_TOKEN = '2019883274951221|1c9281343bdcde168cdad00e354fd2aa'
 
     def get_page_data(self, page, start_date, end_date, page_fields, post_fields):
-        
+
+        fields_requested = True
+
         if page_fields is None: 
             page_fields = ['id']
             fields_requested = False
