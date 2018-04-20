@@ -1,4 +1,4 @@
-import facebook
+from V2.CustomException import CustomException
 import requests
 import jsonpickle
 import sys
@@ -12,23 +12,29 @@ class PageDataService:
     _ACCESS_TOKEN = '2019883274951221|1c9281343bdcde168cdad00e354fd2aa'
 
     def get_page_data(self, page, start_date, end_date, page_fields, post_fields):
+        
+        if page_fields is None: 
+            page_fields = ['id']
+            fields_requested = False
 
-        params = {'fields': ','.join(page_fields), 'access_token': self._ACCESS_TOKEN}
+        field_param = ','.join(page_fields)
+        params = {'fields': field_param, 'access_token': self._ACCESS_TOKEN}
 
-        page_response = requests.get('https://graph.facebook.com/v2.11/' + page, params)
-        page_response_dict = jsonpickle.decode(page_response.text)
+        try:
+            page_response = requests.get('https://graph.facebook.com/v2.11/' + page, params)
+            page_response_dict = jsonpickle.decode(page_response.text)
+        except:
+            raise CustomException('There was a problem getting the company data', 500)
 
         symbol, company = self.get_symbol_and_company(page)
 
         response = {
             'InstrumentID': symbol,
             'CompanyName': company
-        }
-
-         # print(str(page_response_dict),file=sys.stdout)
+        } if fields_requested else {}
 
         for field in page_fields:
-            if field == 'id':
+            if field == 'id' and fields_requested:
                 response['PageId'] = page_response_dict['id']
             elif field == 'name':
                 response['PageName'] = page_response_dict['name']
@@ -41,7 +47,7 @@ class PageDataService:
             elif field == 'fan_count':
                 response['FanCount'] = page_response_dict['fan_count']
 
-        if type(post_fields) is list and len(post_fields) > 0:
+        if  post_fields is not None and type(post_fields) is list and len(post_fields) > 0:
             response['posts'] = self.get_posts(page_id=page_response_dict['id'], start_date=start_date, end_date=end_date, fields=post_fields)
 
         return response
@@ -66,9 +72,11 @@ class PageDataService:
             'until': end_date.isoformat(),
             'fields': ','.join(fields_out)
         }
-
-        api_response = requests.get('https://graph.facebook.com/v2.11/' + page_id + '/posts', params)
-        api_response_dict = jsonpickle.decode(api_response.text)
+        try:
+            api_response = requests.get('https://graph.facebook.com/v2.11/' + page_id + '/posts', params)
+            api_response_dict = jsonpickle.decode(api_response.text)
+        except:
+            raise CustomException('There was a problem getting the company data', 500)
 
         post_response = []
 
