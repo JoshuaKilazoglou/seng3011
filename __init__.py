@@ -7,12 +7,13 @@ from flask import redirect
 from flask_restful import Api
 from V1.PageDataControllerV1 import PageDataControllerV1
 from V2.PageDataControllerV2 import PageDataControllerV2
-
-
+from flask_bower import Bower
+from aylienapiclient import textapi
 
 app = Flask(__name__)
 api = Api(app)
-
+Bower(app)
+client = textapi.Client("84fb5f8e", "42902aee45567b5e27375393a0ac4c70")
 # create endpoints like this with flask_restful
 api.add_resource(PageDataControllerV1, '/api/v1/PageData')
 api.add_resource(PageDataControllerV2, '/api/v2/PageData')
@@ -20,6 +21,8 @@ api.add_resource(PageDataControllerV2, '/api/v2/PageData')
 
 @app.route('/')
 def home():
+
+
     return render_template("index.html")
 
 
@@ -55,8 +58,6 @@ def get_version():
 
 @app.route('/gui' , methods=['POST'])
 def gui():
-
-
     error = 0
     companyE = ''
     startE = ''
@@ -131,8 +132,21 @@ def gui():
     # send request, get response
     print(url)
     response = requests.get(url)
-    print(response.json()['Facebook Statistic Data']['CompanyName'])
-    return render_template("gui.html", company1 = response.json() )
+    print(response.json()['Facebook Statistic Data']['posts'][1]['post_message'])
+
+
+
+
+
+    responseDict = response.json()
+
+    if message != None:
+        for key,value in enumerate(responseDict['Facebook Statistic Data']['posts']):
+            sentiment = client.Sentiment({'text': value['post_message'] })
+            responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
+            responseDict['Facebook Statistic Data']['posts'][key]['Message Subjectivity'] = sentiment['subjectivity']
+
+    return render_template("gui.html", company1 = responseDict )
 
 
 
