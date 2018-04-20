@@ -7,7 +7,6 @@ from flask import redirect
 from flask_restful import Api
 from V1.PageDataControllerV1 import PageDataControllerV1
 from V2.PageDataControllerV2 import PageDataControllerV2
-from flask_bower import Bower
 from aylienapiclient import textapi
 
 app = Flask(__name__)
