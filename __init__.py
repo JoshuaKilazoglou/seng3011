@@ -122,7 +122,7 @@ def gui():
     if loopCount == 0:
         postfields = ",posts.fields()"
 
-    if fields == None: #and postfields == None:
+    if fields == None and postfields == None:
         url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' +startdate + '&enddate=' + enddate
     elif fields == None and postfields != None:
         url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' + startdate + '&enddate=' + enddate + "&fields=" + postfields
@@ -141,6 +141,7 @@ def gui():
             sentiment = client.Sentiment({'text': value['post_message'] })
             responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
             responseDict['Facebook Statistic Data']['posts'][key]['Message Subjectivity'] = sentiment['subjectivity']
+
 
     return render_template("gui.html", company1 = responseDict )
 
