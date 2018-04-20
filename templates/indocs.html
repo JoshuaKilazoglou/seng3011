@@ -82,6 +82,8 @@ http://seng3011laser.com/api/v2/PageData <p></p>
    <p>This query is requesting statistics from the company: 'woolworths' from  October 1st 2015 at 8:45 until November 1st 2015 at 19:37</p>
     <p> To add fields to the this example, such as requesting the company's website, description and fan_count, we append the fields onto the end like so </p>
    <pre><code> <p> http://seng3011laser.com/api/v1/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=description,fan_count,website </p></code></pre>
+    <p>To query for post information, append <strong>,post.fields()</strong> with the desired fields (seperated by commas) in the brackets, to the end of the fields</p>
+       <pre><code> <p> http://seng3011laser.com/api/v1/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=description,post.fields(post_message) </p></code></pre>
     <strong>Definitions for terms in fields: </strong><p></p>
 -	Id: the ID of the company interested assigned by Facebook<p></p>
 -	Name: the name of the company interested<p></p>

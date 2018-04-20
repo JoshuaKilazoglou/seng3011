@@ -128,5 +128,39 @@ Below is an example of a response from the API that requested for data from Wool
     <li>Error messages if an error occured </li>
     <li>Start time, end time,elapsed time and output file name if successful</li>
 </ul>
+If an error occurs from an API request, the log file will output an error message and a code with details on what is causing the issue.
+<pre><code>
+{
+  "Facebook Statistic Data": "Error",
+  "Request Information": {
+    "DevTeam": "laser",
+    "ErrorDetails": {
+      "Code": 500,
+      "Message": "Unexpected exception: local variable 'fields_requested' referenced before assignment"
+    },
+    "ModuleName": "pageData",
+    "ModuleVersion": "v2",
+    "Parameters": {
+      "enddate": "2015-11-02T19:37:12.193Z",
+      "page": "valve",
+      "pageFields": [
+        "id",
+        "name",
+        "fan_count",
+        "website"
+      ],
+      "postFields": [
+        "post_comment_count",
+        "post_type",
+        "post_message",
+        "post_created_time"
+      ],
+      "startdate": "2015-10-01T08:45:10.295Z"
+    },
+    "Successful": false
+  }
+}
+
+</code></pre>
 </html>
 {% endblock %}
