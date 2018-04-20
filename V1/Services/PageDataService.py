@@ -1,5 +1,4 @@
 from V1.Models.PageDataModel import PageDataModel
-import facebook
 import requests
 import jsonpickle
 
@@ -28,49 +27,6 @@ class PageDataService:
         pageData.posts = None
 
         return pageData
-
-    def fields(self):
-        # Setting up the API. Graph is our access point to grab information
-        ACCESS_TOKEN = "EAACEdEose0cBAHEzkmxSLzi3O7upORZB1rTnPqBQDRclWRNFkdBFglVw15MjR1vCWTPmc5qekkj2o2aOY5efgZAPKa5xmCQmiIZBuquI2CD4xhVdzoZBt38PGy1BsnZBtjhCckpZARXnHAAj9EvjSe0ZBGZC6C0iZBJzRPaROjyZCbJZAlG27Cxy4bZBukThYikObzpAZBGq7EvOTuQZDZD"
-        graph = facebook.GraphAPI(ACCESS_TOKEN)
-
-        # For now using dummy companies/fields to show how it works
-        company = "820882001277849"  # Coca-Cola
-        fields = ['id', 'name']
-
-        # building the request. Always start with company and prepare to query fields
-        request = company + "?fields="
-
-        # append fields
-        for field in fields:
-            request = request + field + ","
-
-        # remove last comma
-        request = request[:-1]
-
-        # data is a dict containing the return frmo the api
-        data = graph.request(request)
-
-        return data
-
-    def posts(selfs):
-        ACCESS_TOKEN = "EAACEdEose0cBAHEzkmxSLzi3O7upORZB1rTnPqBQDRclWRNFkdBFglVw15MjR1vCWTPmc5qekkj2o2aOY5efgZAPKa5xmCQmiIZBuquI2CD4xhVdzoZBt38PGy1BsnZBtjhCckpZARXnHAAj9EvjSe0ZBGZC6C0iZBJzRPaROjyZCbJZAlG27Cxy4bZBukThYikObzpAZBGq7EvOTuQZDZD"
-        graph = facebook.GraphAPI(ACCESS_TOKEN)
-
-        company = "820882001277849"  # Coca-Cola
-
-        # there's quite a few date formats we can use
-        startDate = "4feb2018"
-        endDate = "now"
-
-        # limit the number of posts for processing sake. Can remove if we don't want it there
-        limit = "20"
-
-        request = company + "/posts?since=" + startDate + "&until=" + endDate + "&limit=" + limit
-
-        data = graph.request(request)
-
-        return data
 
 
 
