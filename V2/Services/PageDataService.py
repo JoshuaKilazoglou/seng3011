@@ -15,7 +15,7 @@ class PageDataService:
 
         fields_requested = True
 
-        if page_fields is None: 
+        if page_fields is None:
             page_fields = ['id']
             fields_requested = False
 

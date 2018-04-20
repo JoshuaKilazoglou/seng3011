@@ -78,6 +78,9 @@ def gui():
         endE = 'Incorrect end date format'
         error = 1
 
+    if enddate <= startdate:
+        endE = 'The end date must not be the same/before the start date'
+        error = 1
     if error == 1:
         return render_template('index.html',companyError=companyE,startError=startE,endError=endE)
 
