@@ -124,8 +124,8 @@ def gui():
 
     if fields == None: #and postfields == None:
         url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' +startdate + '&enddate=' + enddate
-  #  elif fields == None and postfields != None:
-  #      url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' + startdate + '&enddate=' + enddate + "&fields=" + postfields
+    elif fields == None and postfields != None:
+        url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' + startdate + '&enddate=' + enddate + "&fields=" + postfields
     elif postfields == None:
         url = 'http://seng3011laser.com/api/v2/PageData?company=' + company + '&startdate=' + startdate + '&enddate=' + enddate + fields
     else:
@@ -136,13 +136,13 @@ def gui():
 
     responseDict = response.json()
 
-#    if message != None:
-   #     for key,value in enumerate(responseDict['Facebook Statistic Data']['posts']):
-  #          sentiment = client.Sentiment({'text': value['post_message'] })
-  #          responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
-   #         responseDict['Facebook Statistic Data']['posts'][key]['Message Subjectivity'] = sentiment['subjectivity']
+    if message != None:
+        for key,value in enumerate(responseDict['Facebook Statistic Data']['posts']):
+            sentiment = client.Sentiment({'text': value['post_message'] })
+            responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
+            responseDict['Facebook Statistic Data']['posts'][key]['Message Subjectivity'] = sentiment['subjectivity']
 
-    return render_template("gui.html", company1 = response.json() )
+    return render_template("gui.html", company1 = responseDict )
 
 
 
