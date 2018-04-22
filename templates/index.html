@@ -55,9 +55,11 @@
                             <b>How does our client web application integrate with our API?</b>
                             <p>
                             Below is an interface where you're able to specify the parameters you wish to retrieve data
-                            from. Once submitting the relevant fields, our web client transforms the JSON Object
-                            data into nicely formatted data so it's easier for the users to distinguish the
-                            information that they need.
+                            from. Once submitting the relevant fields, our web client calls our API then formats the
+                            JSON return data so that it's easier to extract the relevant information that the user wants.
+                            We are also passing the Facebook messages through a text analyser to identify the positivity
+                            factor of the Page's posts. We hope to incorporate this data with the changes of Facebook
+                            likes between time periods to give a trend on how the particular company is doing.
                             </p>
                         </div>
                         <div class = "col-4">
@@ -66,13 +68,15 @@
                                 - To influence investment choices of social media active users<br>
                                 - Demonstrate the percentage of increased followers of companies<br>
                                 - Generate data on the type of comments said on a companies page <br>
+                                - Identify trends related to Facebook activity for different company pages <br>
                             </p>
                         </div>
                         <div class = "col-4">
-                            <b>How are we affecting the data?</b>
+                            <b>How are we currently affecting the data?</b>
                             <p>
-                                - Taken data from JSON return and formatted so it's easier to read<br>
+                                - Taken data from the JSON return and formatted so it's easier to read<br>
                                 - Analysed messages from Posts to determine whether they're positive or not<br>
+                                - Returned data on posts provided by the companies<br>
                             </p>
                         </div>
                     </div>
