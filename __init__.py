@@ -78,6 +78,9 @@ def gui():
         endE = 'Incorrect end date format'
         error = 1
 
+    if enddate <= startdate:
+        endE = 'The end date must not be the same/before the start date'
+        error = 1
     if error == 1:
         return render_template('index.html',companyError=companyE,startError=startE,endError=endE)
 
@@ -136,7 +139,8 @@ def gui():
 
     responseDict = response.json()
 
-    if message != None:
+    if message != None and responseDict['Facebook Statistic Data'] != 'Error':
+
         for key,value in enumerate(responseDict['Facebook Statistic Data']['posts']):
             sentiment = client.Sentiment({'text': value['post_message'] })
             responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
