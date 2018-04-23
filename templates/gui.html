@@ -7,7 +7,12 @@
 
 </head>
 <h1 class="h2 text-primary">Facebook Statistic Data </h1></div>
-
+{% if graph_data != ''  %}
+<div class="container">
+    <h3>{{ graphTitle }}</h3>
+    <embed type="image/svg+xml" src="{{ graph_data|safe }}" style="max-width: 1000px"/>
+</div>
+{% endif %}
 {% for fieldkey in company1['Facebook Statistic Data'] %}
     {% if fieldkey != 'posts' %}
         <div class="card mb-3" >

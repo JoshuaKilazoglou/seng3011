@@ -3,3 +3,4 @@ flask_restful
 jsonpickle
 facebook-sdk
 aylienapiclient
+pygal

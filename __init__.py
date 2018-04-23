@@ -8,7 +8,8 @@ from flask_restful import Api
 from V1.PageDataControllerV1 import PageDataControllerV1
 from V2.PageDataControllerV2 import PageDataControllerV2
 from aylienapiclient import textapi
-
+import pygal
+from datetime import date
 app = Flask(__name__)
 api = Api(app)
 
@@ -145,9 +146,34 @@ def gui():
             sentiment = client.Sentiment({'text': value['post_message'] })
             responseDict['Facebook Statistic Data']['posts'][key]['Message Polarity'] = sentiment['polarity']
             responseDict['Facebook Statistic Data']['posts'][key]['Message Subjectivity'] = sentiment['subjectivity']
+    graph_data=""
+    graphTitle=""
+    if time != None and responseDict['Facebook Statistic Data'] != 'Error':
+        timedict = {}
+        for key, value in enumerate(responseDict['Facebook Statistic Data']['posts']):
+            if (value['post_created_time'][:10]) not in timedict:
+                timedict[(value['post_created_time'][:10])] = 1
+            else:
+                timedict[(value['post_created_time'][:10])] = timedict[(value['post_created_time'][:10])] + 1
 
+        dateline = pygal.DateLine(x_label_rotation=25)
+        dateline.x_labels = []
+        dateline.x_labels.append(date(int(startdate[:4]), int(startdate[5:7]), int(startdate[8:10])))
+        dateline.x_labels.append(date(int(enddate[:4]), int(enddate[5:7]), int(enddate[8:10])))
 
-    return render_template("gui.html", company1 = responseDict )
+        datecount = []
+        count = 0;
+        for key in timedict:
+            if count % 2:
+                dateline.x_labels.append(date(int(key[:4]), int(key[5:7]), int(key[8:10])))
+            datecount.append((date(int(key[:4]), int(key[5:7]), int(key[8:10])),timedict[key]))
+            count+=1
+
+        dateline.add("Post Count", datecount)
+        graphTitle = 'Post Count of ' + company + " from " +startdate[:4]+ "-" +startdate[5:7]+"-" + startdate[8:10] +" to " + enddate[:4]+"-" +enddate[5:7] +"-"+ enddate[8:10]
+        graph_data = dateline.render_data_uri()
+
+    return render_template("gui.html", company1 = responseDict,graph_data=graph_data,graphTitle=graphTitle)
 
 
 
