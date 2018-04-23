@@ -158,7 +158,7 @@ def gui():
 
         dateline = pygal.DateLine(x_label_rotation=25)
         dateline.x_labels = []
-        dateline.x_labels.append(date(int(startdate[:4]), int(startdate[5:7]), int(startdate[8:10])))
+        #dateline.x_labels.append(date(int(startdate[:4]), int(startdate[5:7]), int(startdate[8:10])))
         dateline.x_labels.append(date(int(enddate[:4]), int(enddate[5:7]), int(enddate[8:10])))
 
         datecount = []
