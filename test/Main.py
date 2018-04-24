@@ -43,18 +43,19 @@ class Registration(BaseSettings):
             for test_case in test_cases:
                 url = self.construct_url(test_case)
                 result = self.app.get(url)
-                print(result.data)
-                self.assertNotEqual(result.status, '500 INTERNAL SERVER ERROR')
+                self.assertEqual(result.status, '200 OK')
 
-                result_dict = jsonpickle.decode(result.data)
+                result_dict = jsonpickle.decode(result.data.decode('utf-8'))
                 result_fb_info = result_dict['Facebook Statistic Data']
+                print(result_fb_info)
+                #  Check that if we are expecting a field (according to test_case) that the field is actually in the result
+                self.assertEqual("PageId" in test_case['page_fields_output'], "PageId" in result_fb_info)
+                #  self.assertEqual("PageName" in test_case['page_fields_output'], "PageName" in result_fb_info)
+                self.assertEqual("Description" in test_case['page_fields_output'], "Description" in result_fb_info)
+                self.assertEqual("Category" in test_case['page_fields_output'], "Category" in result_fb_info)
+                self.assertEqual("FanCount" in test_case['page_fields_output'], "FanCount" in result_fb_info)
+                self.assertEqual("Website" in test_case['page_fields_output'], "Website" in result_fb_info)
 
-                self.assertEqual("id" in test_case['page_fields_output'], "PageId" in result_fb_info)
-                self.assertEqual("name" in test_case['page_fields_output'], "PageName" in result_fb_info)
-                self.assertEqual("description" in test_case['page_fields_output'], "Description" in result_fb_info)
-                self.assertEqual("category" in test_case['page_fields_output'], "Category" in result_fb_info)
-                self.assertEqual("fan_count" in test_case['page_fields_output'], "FanCount" in result_fb_info)
-                self.assertEqual("website" in test_case['page_fields_output'], "Website" in result_fb_info)
 
                 self.assertEqual(len(test_case['post_fields_output']) > 0, hasattr(result_fb_info, 'posts'), "Must contain post results")
                 self.assertEqual(len(test_case['post_fields_output']) > 0, "post_id" in result_fb_info['posts'][0])
@@ -70,7 +71,7 @@ class Registration(BaseSettings):
 
     def construct_url(self, test_case):
         post_fields = test_case['post_fields_input']
-        page_fields = test_case['page_fields_output']
+        page_fields = test_case['page_fields_input']
 
         if len(page_fields) == 0 and len(post_fields) == 0:
             return '/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z'
