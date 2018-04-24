@@ -21,8 +21,6 @@ api.add_resource(PageDataControllerV2, '/api/v2/PageData')
 
 @app.route('/')
 def home():
-
-
     return render_template("index.html")
 
 

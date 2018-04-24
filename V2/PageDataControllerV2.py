@@ -46,7 +46,7 @@ class PageDataControllerV2(Resource):
                 else:
                     post_fields = None
             except:
-                return self.error(400, 'Malformed post fields')
+                return self.error(400, 'Malformed post fields'), 400
 
         else:
             page_fields = None
@@ -71,28 +71,28 @@ class PageDataControllerV2(Resource):
             else:
                 end_date = None
         except:
-            return self.error(400, 'Datetime strings must be formatted: yyyy-MM-ddTHH:mm:ss.SSSZ')
+            return self.error(400, 'Datetime strings must be formatted: yyyy-MM-ddTHH:mm:ss.SSSZ'), 400
 
         try:
             page_data_response = self._page_data_service.get_page_data(page, start_date, end_date, page_fields, post_fields)
         except CustomException as custom_exception:
             return self.error(custom_exception.http_code, custom_exception.response_message)
         except Exception as ex:
-            return self.error(500, "Unexpected exception: " +  str(ex))
+            return self.error(500, "Unexpected exception: " + str(ex)), 500
 
 
         return self.success(page_data_response)
 
     def error(self, code, message):
-        return jsonify({
+        return {
             'Facebook Statistic Data': 'Error',
             'Request Information': self._request_info_service.get_with_error_info(code, message)
-        })
+        }
 
     def success(self, page_data_response):
-        return jsonify({
+        return {
             'Facebook Statistic Data': page_data_response,
             'Request Information': self._request_info_service.get_with_success_info()
-        })
+        }
 
 
