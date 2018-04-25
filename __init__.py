@@ -113,8 +113,14 @@ def gui():
 
     postfields = ",posts.fields("
     loopCount = 0
+    graph_likes = 0
+    graph_comments = 0
     for x in type,likes,comments,time,message:
         if x != None:
+            if x == likes:
+                graph_likes = 1;
+            if x == comments:
+                graph_comments = 1;
             if loopCount == 0:
                 postfields = postfields + x
                 loopCount = 1
@@ -147,18 +153,47 @@ def gui():
     graph_data=""
     graphTitle=""
     if time != None and responseDict['Facebook Statistic Data'] != 'Error':
+        #posts count, commets count, likes count
         timedict = {}
+        likesdict = {}     
+        commentsdict = {}
         for key, value in enumerate(responseDict['Facebook Statistic Data']['posts']):
             if (value['post_created_time'][:10]) not in timedict:
                 timedict[(value['post_created_time'][:10])] = 1
+                if (graph_likes): 
+                    likesdict[(value['post_created_time'][:10])] = value['post_like_count']
+                if (graph_comments):
+                    commentsdict[(value['post_created_time'][:10])] = value['post_comment_count']
             else:
                 timedict[(value['post_created_time'][:10])] = timedict[(value['post_created_time'][:10])] + 1
-
+                if (graph_likes):
+                    likesdict[(value['post_created_time'][:10])] = likesdict[(value['post_created_time'][:10])] + value['post_like_count']
+                if (graph_comments):
+                    commentsdict[(value['post_created_time'][:10])] = commentsdict[(value['post_created_time'][:10])] + value['post_comment_count']
+                
+                
         dateline = pygal.DateLine(x_label_rotation=25)
         dateline.x_labels = []
         #dateline.x_labels.append(date(int(startdate[:4]), int(startdate[5:7]), int(startdate[8:10])))
         dateline.x_labels.append(date(int(enddate[:4]), int(enddate[5:7]), int(enddate[8:10])))
-
+        if (graph_likes):
+            likescount = []
+            count = 0;
+            for key in likesdict:
+                if count % 2:
+                    dateline.x_labels.append(date(int(key[:4]), int(key[5:7]), int(key[8:10])))
+                likescount.append((date(int(key[:4]), int(key[5:7]), int(key[8:10])),likesdict[key]))
+                count+=1
+        
+        if (graph_comments):
+            commentscount = []
+            count = 0;
+            for key in commentsdict:
+                if count % 2:
+                    dateline.x_labels.append(date(int(key[:4]), int(key[5:7]), int(key[8:10])))
+                commentscount.append((date(int(key[:4]), int(key[5:7]), int(key[8:10])),commentsdict[key]))
+                count+=1
+            
         datecount = []
         count = 0;
         for key in timedict:
@@ -166,9 +201,15 @@ def gui():
                 dateline.x_labels.append(date(int(key[:4]), int(key[5:7]), int(key[8:10])))
             datecount.append((date(int(key[:4]), int(key[5:7]), int(key[8:10])),timedict[key]))
             count+=1
-
-        dateline.add("Post Count", datecount)
-        graphTitle = 'Post Count of ' + company + " from " +startdate[:4]+ "-" +startdate[5:7]+"-" + startdate[8:10] +" to " + enddate[:4]+"-" +enddate[5:7] +"-"+ enddate[8:10]
+        if (graph_comments):
+            dateline.add("Comments Count", commentscount)
+        if (graph_likes):
+            dateline.add("Likes Count", likescount)
+        if (graph_comments==0 and graph_likes==0):
+            dateline.add("Posts Count", datecount)
+            graphTitle = 'Posts Count of ' + company + " from " +startdate[:4]+ "-" +startdate[5:7]+"-" + startdate[8:10] +" to " + enddate[:4]+"-" +enddate[5:7] +"-"+ enddate[8:10]
+        else:
+            graphTitle = 'Comments & Likes Count of ' + company + " from " +startdate[:4]+ "-" +startdate[5:7]+"-" + startdate[8:10] +" to " + enddate[:4]+"-" +enddate[5:7] +"-"+ enddate[8:10]
         graph_data = dateline.render_data_uri()
 
     return render_template("gui.html", company1 = responseDict,graph_data=graph_data,graphTitle=graphTitle)
