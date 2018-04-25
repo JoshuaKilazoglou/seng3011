@@ -1,0 +1,7 @@
+Total time to make 20 requests is 2.5071539878845215 seconds
+Total time to make 50 requests is 5.633832931518555 seconds
+Total time to make 100 requests is 10.246432065963745 seconds
+Total time to make 500 requests is 45.21708106994629 seconds
+Total time to make 1000 requests is 90.72299695014954 seconds
+Total time to make 2000 requests is 176.05104398727417 seconds
+

@@ -1,0 +1,2 @@
+Total time for requests to finish is time is 2.707247734069824
+Total time for requests to finish is time is 2.040673017501831
