@@ -3,45 +3,73 @@ import requests
 import time
 
 
-def worker(num):
+def worker(num,api):
     """thread worker function"""
     print ("Request Number %s " % (num))
-    reponse = requests.get("http://seng3011laser.com/api/v2/PageData?company=woolworths&startdate=2015-10-01T08%3A45%3A10.295Z&enddate=2015-11-02T19%3A37%3A12.193Z&fields=id%2Cname%2Cfan_count%2Cwebsite%2Cposts.fields(post_comment_count%2Cpost_type%2Cpost_message%2Cpost_created_time)")
+    response = requests.get(api)
     return
 
 #Test x calls in x intervals
-def xPerMin(interval,calls):
+def xPerMin(interval,calls,api,name):
     fh = open("Performance.txt", "a")
     threads = []
     now = time.time()
     currInterval = 0
     for i in range(calls):
-        t = threading.Timer(currInterval,worker,[i])
+        t = threading.Timer(currInterval,worker,[i,api])
         currInterval += interval
         threads.append(t)
         t.start()
     for x in threads:
         x.join()
-    fh.write("Total time for requests to finish is time is %s\n" % (time.time()-now))
+    fh.write("%s : Total time for %s requests to finish is %s seconds, at rate : %s \n" % (name, calls, time.time() - now,interval))
     fh.close()
 
 #do x calls as quick as possible
-def xCalls(calls):
+def xCalls(calls,api,name):
     threads = []
     now = time.time()
     fh = open("Performance.txt", "a")
     for i in range(calls):
-        t = threading.Thread(target=worker, args=(i,))
+        t = threading.Thread(target=worker, args=(i,api))
         threads.append(t)
         t.start()
     for x in threads:
         x.join()
-    fh.write("Total time for requests to finish is time is %s\n" % (time.time()-now))
+    fh.write("%s : Total time for %s requests to finish is %s seconds\n" % (name,calls,time.time()-now))
     fh.close()
 
 def main():
-    xPerMin(1,1)
-    xPerMin(1,1)
+    fh = open("Performance.txt", "a")
+    apis = {}
+    #get the apis from the text
+    with open('perfInputs.txt', 'r') as f:
+        for line in f:
+            words = line.split()
+            apis[words[0]] = words[1]
 
+
+    '''
+    for key in apis:
+        print("Testing 1 call on api: " + key)
+        xCalls(1,apis[key],key)
+        print("Testing 10 calls on api: " + key)
+        xCalls(10, apis[key], key)
+        print("Testing 100 calls on api: " + key)
+        xCalls(100, apis[key], key)
+        print("Testing 300 calls on api: " + key)
+        xCalls(300, apis[key], key)
+     '''
+    for key in apis:
+        print("Testing 1 call on api: " + key)
+        xPerMin(1,1,apis[key],key)
+        print("Testing 10 calls on api: " + key)
+        xPerMin(1/10, 10, apis[key], key)
+        print("Testing 100 calls on api: " + key)
+        xPerMin(1/100, 100, apis[key], key)
+        print("Testing 3400 calls on api: " + key)
+        xPerMin(1/300, 300, apis[key], key)
+
+    fh.close()
 if __name__ == "__main__":
     main()

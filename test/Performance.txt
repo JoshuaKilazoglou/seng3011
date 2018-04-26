@@ -1,2 +1,46 @@
-Total time for requests to finish is time is 2.707247734069824
-Total time for requests to finish is time is 2.040673017501831
+Positive Vibes : Total time for 1 requests to finish is 1.5015695095062256 seconds
+Positive Vibes : Total time for 10 requests to finish is 1.4978306293487549 seconds
+Positive Vibes : Total time for 100 requests to finish is 23.261099338531494 seconds
+Positive Vibes : Total time for 300 requests to finish is 27.77992868423462 seconds
+Laser : Total time for 1 requests to finish is 1.712432861328125 seconds
+Laser : Total time for 10 requests to finish is 2.8815712928771973 seconds
+Laser : Total time for 100 requests to finish is 8.403304815292358 seconds
+Laser : Total time for 300 requests to finish is 20.051700115203857 seconds
+Moose : Total time for 1 requests to finish is 2.5930001735687256 seconds
+Moose : Total time for 10 requests to finish is 14.02182936668396 seconds
+Moose : Total time for 100 requests to finish is 31.28447651863098 seconds
+Moose : Total time for 300 requests to finish is 41.207659006118774 seconds
+Crushing Beasts : Total time for 1 requests to finish is 27.014663696289062 seconds
+Crushing Beasts : Total time for 10 requests to finish is 86.50496625900269 seconds
+Crushing Beasts : Total time for 100 requests to finish is 256.4248766899109 seconds
+Crushing Beasts : Total time for 300 requests to finish is 366.6260380744934 seconds
+Unassigned : Total time for 1   requests to finish is 1.089510440826416 seconds
+Unassigned : Total time for 10 requests to finish is 1.0131726264953613 seconds
+Unassigned : Total time for 100 requests to finish is 2.412590980529785 seconds
+Unassigned : Total time for 300 requests to finish is 10.791041612625122 seconds
+
+
+Positive Vibes : Total time for 1 requests to finish is 1.8485043048858643 seconds, at rate : 1 
+Positive Vibes : Total time for 10 requests to finish is 3.374098539352417 seconds, at rate : 0.1 
+Positive Vibes : Total time for 100 requests to finish is 6.942575216293335 seconds, at rate : 0.01 
+Positive Vibes : Total time for 300 requests to finish is 24.647621631622314 seconds, at rate : 0.0033333333333333335 
+Laser : Total time for 1 requests to finish is 1.9744644165039062 seconds, at rate : 1 
+Laser : Total time for 10 requests to finish is 4.9646430015563965 seconds, at rate : 0.1 
+Laser : Total time for 100 requests to finish is 10.053779125213623 seconds, at rate : 0.01 
+Laser : Total time for 300 requests to finish is 21.400172233581543 seconds, at rate : 0.0033333333333333335 
+Moose : Total time for 1 requests to finish is 2.311959743499756 seconds, at rate : 1 
+Moose : Total time for 10 requests to finish is 11.32898736000061 seconds, at rate : 0.1 
+Moose : Total time for 100 requests to finish is 31.479195594787598 seconds, at rate : 0.01 
+Moose : Total time for 300 requests to finish is 34.52941632270813 seconds, at rate : 0.0033333333333333335 
+Crushing Beasts : Total time for 1 requests to finish is 20.140164375305176 seconds, at rate : 1 
+Crushing Beasts : Total time for 10 requests to finish is 30.17213487625122 seconds, at rate : 0.1 
+Crushing Beasts : Total time for 100 requests to finish is 245.02408909797668 seconds, at rate : 0.01 
+Crushing Beasts : Total time for 300 requests to finish is 367.1315803527832 seconds, at rate : 0.0033333333333333335 
+Unassigned : Total time for 1 requests to finish is 1.5971639156341553 seconds, at rate : 1 
+Unassigned : Total time for 10 requests to finish is 1.8646161556243896 seconds, at rate : 0.1 
+Unassigned : Total time for 100 requests to finish is 4.96825647354126 seconds, at rate : 0.01 
+Unassigned : Total time for 300 requests to finish is 11.064408302307129 seconds, at rate : 0.0033333333333333335 
+Positive Vibes : Total time for 1 requests to finish is 2.3136534690856934 seconds, at rate : 1 
+Positive Vibes : Total time for 10 requests to finish is 3.0369417667388916 seconds, at rate : 0.1 
+Positive Vibes : Total time for 100 requests to finish is 12.211504697799683 seconds, at rate : 0.01 
+Positive_Vibes : Total time for 1 requests to finish is 3.9013586044311523 seconds, at rate : 1 
