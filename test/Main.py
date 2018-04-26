@@ -47,7 +47,8 @@ class Registration(BaseSettings):
 
                 result_dict = jsonpickle.decode(result.data.decode('utf-8'))
                 result_fb_info = result_dict['Facebook Statistic Data']
-                print(result_fb_info)
+
+
                 #  Check that if we are expecting a field (according to test_case) that the field is actually in the result
                 self.assertEqual("PageId" in test_case['page_fields_output'], "PageId" in result_fb_info)
                 #  self.assertEqual("PageName" in test_case['page_fields_output'], "PageName" in result_fb_info)
@@ -56,14 +57,15 @@ class Registration(BaseSettings):
                 self.assertEqual("FanCount" in test_case['page_fields_output'], "FanCount" in result_fb_info)
                 self.assertEqual("Website" in test_case['page_fields_output'], "Website" in result_fb_info)
 
-
-                self.assertEqual(len(test_case['post_fields_output']) > 0, hasattr(result_fb_info, 'posts'), "Must contain post results")
-                self.assertEqual(len(test_case['post_fields_output']) > 0, "post_id" in result_fb_info['posts'][0])
-                self.assertEqual("post_type" in test_case['post_fields_output'], "post_type" in result_fb_info['posts'][0])
-                self.assertEqual("post_message" in test_case['post_fields_output'], "post_message" in result_fb_info['posts'][0])
-                self.assertEqual("post_like_count" in test_case['post_fields_output'], "post_like_count" in result_fb_info['posts'][0])
-                self.assertEqual("post_comment_count" in test_case['post_fields_output'], "post_comment_count" in result_fb_info['posts'][0])
-                self.assertEqual("post_created_time" in test_case['post_fields_output'], "post_created_time" in result_fb_info['posts'][0])
+                if('posts' in result_fb_info):
+                    self.assertEqual(len(test_case['posts_fields_output']) > 0, "post_id" in result_fb_info['posts'][0])
+                    self.assertEqual("post_type" in test_case['posts_fields_output'], "post_type" in result_fb_info['posts'][0])
+                    self.assertEqual("post_message" in test_case['posts_fields_output'], "post_message" in result_fb_info['posts'][0])
+                    self.assertEqual("post_like_count" in test_case['posts_fields_output'], "post_like_count" in result_fb_info['posts'][0])
+                    self.assertEqual("post_comment_count" in test_case['posts_fields_output'], "post_comment_count" in result_fb_info['posts'][0])
+                    self.assertEqual("post_created_time" in test_case['posts_fields_output'], "post_created_time" in result_fb_info['posts'][0])
+                else:
+                    self.assertTrue(len(test_case['posts_fields_output']) == 0)
 
 
                 print('Test Case ' + str(test_case_no) + ' Successful')
