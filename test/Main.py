@@ -4,6 +4,11 @@ import csv
 import jsonpickle
 import requests
 
+#
+# NOTE: endpoint for tests now configurable with the value in endpoint.json which should be either seng3011laser.com,
+# localhost:5000, or blank for internal test
+#
+
 class BaseSettings(TestCase):
     def setUp(self):
         self.message = ""
@@ -38,9 +43,9 @@ class Registration(BaseSettings):
             test_case_no = 1
 
             for row in reader:
-                result = self.app.get(row['URL'])
-                self.assertEqual(int(row['StatusCode']), result.status_code, 'Test case ' + str(test_case_no) +
-                                 ' failed with URL: ' + row['URL'] + '\n Data: ' + str(result.data))
+                result, code = self.getResponse(row['URL'])
+                self.assertEqual(int(row['StatusCode']), code, 'Test case ' + str(test_case_no) +
+                                 ' failed with URL: ' + row['URL'])
                 print('Test Case ' + str(test_case_no) + ' Successful')
                 test_case_no += 1
 
@@ -52,7 +57,8 @@ class Registration(BaseSettings):
             test_case_no = 1
 
             for test_case in test_cases:
-                result = self.getAPIResponse(test_case)
+                result, code = self.getAPIResponse(test_case)
+                self.assertEqual(code, 200)
 
                 result_dict = jsonpickle.decode(result)
                 result_fb_info = result_dict['Facebook Statistic Data']
@@ -85,7 +91,7 @@ class Registration(BaseSettings):
         page_fields = test_case['page_fields_input']
 
         if len(page_fields) == 0 and len(post_fields) == 0:
-            return self.getResponse(self.endpoint + '/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z')
+            return self.getResponse('/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z')
         elif len(post_fields) == 0:
             fields_string = ','.join(page_fields)
         elif len(page_fields) == 0:
@@ -93,16 +99,14 @@ class Registration(BaseSettings):
         else:
             fields_string = ','.join(page_fields) + ',posts.fields(' + ','.join(post_fields) + ')'
 
-        response = self.getResponse(self.endpoint + '/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=' + fields_string)
+        response = self.getResponse('/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=' + fields_string)
 
         return response
 
     def urlGet(self, url):
-        response = requests.get(url)
-        self.assertEqual(response.status_code, 200)
-        return response.text
+        response = requests.get(self.endpoint + url)
+        return response.text, response.status_code
 
     def internalGet(self, url):
-        response = self.app.get(url)
-        self.assertEqual(response.status, '200 OK')
-        return response.data.decode('utf-8')
+        response = self.app.get(self.endpoint + url)
+        return response.data.decode('utf-8'), response.status_code
