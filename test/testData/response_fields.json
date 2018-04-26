@@ -26,7 +26,7 @@
         "InstrumentId",
         "Category",
         "PageId",
-        "Website"
+        "Description"
       ],
       "posts_fields_output":
       [
@@ -57,7 +57,7 @@
         "Website",
         "InstrumentId",
         "PageId",
-        "Website"
+        "Description"
       ],
       "posts_fields_output":
       [
