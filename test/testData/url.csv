@@ -4,8 +4,10 @@ URL,StatusCode
 "/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website",200
 "/api/v2/PageData?company=woolworths&fields=id,name,fan_count,website",200
 "/api/v2/PageData?company=woolworths",200
-"/api/v2/Blah",404
+"/api/v2/PageData?company=woolworths&startdate=2016-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website,posts.fields(comment_count)",400
 "/api/v2/PageData?company=woolworths&startdate=invaliddate&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website",400
-"/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=invaliddate&fields=id,name,fan_count,website",400
-"/api/v2/PageData?company=woolworths&startdate=2015-10-01T08:45:10.295Z&enddate=invaliddate&fields=id,name,fan_count,INVALIDFIELD",400
+"/api/v2/PageData?company=woolworths&startdate=2015-13-13T08:45:10.295Z&enddate=2015-14-14T19:37:12.193Z&fields=id,name,fan_count,website,posts.fields(comment_count)",400
 "/api/v2/PageData?company=woolworthsssssss&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website,posts.fields(comment_count)",500
+"/api/v2/PageData?company=&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website,posts.fields(comment_count)",500
+"/api/v2/PageData?company=w00lwor_hs&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website,posts.fields(comment_count)",500
+"/api/v2/PageData?company=WOOLWorths&startdate=2015-10-01T08:45:10.295Z&enddate=2015-11-01T19:37:12.193Z&fields=id,name,fan_count,website,posts.fields(comment_count)",500

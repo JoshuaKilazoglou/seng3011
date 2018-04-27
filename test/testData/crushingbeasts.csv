@@ -1,0 +1,13 @@
+URL,StatusCode
+"/",200
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=&instid=wow&stats=id,%20name,%20website,category,%20fan_count",400
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-11-1T0:0:0&instid=wow&stats=id,%20name,%20website,category,%20fan_count",200
+"/api/v1/fbstats?startdate=2015101T0:0:0&enddate=2015111T0:0:0&instid=wow&stats=id,%20name,%20website,category,%20fan_count",400
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-11-1T0:0:0&instid=wow&stats=id,%20name,%20website,category,%20fan_count",200
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=invalid&instid=wow&stats=id,%20name,%20website,category,%20fan_count",200
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-13-13T0:0:0&instid=wow&stats=id,%20name,%20website,category,%20fan_count",400
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2014-11-1T0:0:0&instid=wow&stats=id,%20name,%20website,category,%20fan_count",400
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-11-1T0:0:0&instid=wowee&stats=id,%20name,%20website,category,%20fan_count",400
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-11-1T0:0:0&instid=WOW&stats=id,%20name,%20website,category,%20fan_count",200
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-11-1T0:0:0&instid=wow&stats=id,%20name,%20website,category,%20fan_count",200
+"/api/v1/fbstats?startdate=2015-10-1T0:0:0&enddate=2015-11-1T0:0:0&instid=wow",200

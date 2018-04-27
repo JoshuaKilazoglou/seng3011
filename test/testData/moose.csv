@@ -1,0 +1,12 @@
+URL,StatusCode
+"/",200
+"/v3/company?id=woolworths&start_date=2015-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&stats=id,name,fan_count,website",200
+"/v3/company?id=woolworths&start_date=2015-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&",200
+"/v3/company?id=woolworths&start_date=2015-13-13T08:45:10.295Z&end_date=2015-14-14T19:37:12.193Z&stats=id,name,fan_count,website",400
+"/v3/company?id=woolworths&start_date=2016-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&stats=id,name,fan_count,website",400
+"/v3/company?id=woolworths&start_date=2015-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&stats=id,name,fan_count,website,post_comment_count",200
+"/v3/company?id=woolworths&start_date=2015-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&stats=id,name,fan_count,website",200
+"/v3/company?id=woolworths&start_date=invaliddate&end_date=invaliddate&stats=id,name,fan_count,website",400
+"/v3/company?id=woolworths&start_date=2015-10-01T08:45:10.295Z&end_date=invaliddate&stats=id,name,fan_count,website",400
+"/v3/company?id=&start_date=2015-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&stats=id,name,fan_count,website",400
+"/v3/company?id=woolworthsssssss&start_date=2015-10-01T08:45:10.295Z&end_date=2015-11-01T19:37:12.193Z&stats=id,name,fan_count,website",400
