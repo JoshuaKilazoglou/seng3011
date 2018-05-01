@@ -1,0 +1,17 @@
+{
+  "events":
+  [
+      {
+          "name": "name1",
+          "description": "description1"
+      },
+      {
+          "name": "name2",
+          "description": "description3"
+      },
+      {
+          "name": "name3",
+          "description": "description3"
+      }
+  ]
+}

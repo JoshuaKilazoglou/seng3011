@@ -1,0 +1,33 @@
+{
+  "Sectors":
+          [
+            {
+              "Name": "Mining",
+              "Companies":
+                      [
+                        "GoldFieldsLTD",
+                        "BHPWA",
+                        "riotintoAU"
+                      ]
+            },
+            {
+              "Name": "Retail",
+              "Companies":
+                      [
+                        "davidjonesstore",
+                        "myer",
+                        "woolworths"
+                      ]
+            },
+            {
+              "Name": "Banking",
+              "Companies":
+                      [
+                        "commonwealthbank",
+                        "Westpac",
+                        "ANZAustralia",
+                        "NAB"
+                      ]
+            }
+          ]
+}

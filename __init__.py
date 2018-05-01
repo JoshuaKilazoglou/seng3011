@@ -10,14 +10,32 @@ from V2.PageDataControllerV2 import PageDataControllerV2
 from aylienapiclient import textapi
 import pygal
 from datetime import date
+from PoliticalWebsite import MainController
+
 app = Flask(__name__)
 api = Api(app)
 
 client = textapi.Client("84fb5f8e", "42902aee45567b5e27375393a0ac4c70")
+
+
+#  =================================================
+#  == Political website endpoints registered here ==
+#  =================================================
+
+api.add_resource(MainController.Events, '/api/pw/Events')
+api.add_resource(MainController.NewsArticles, '/api/pw/NewsArticles')
+api.add_resource(MainController.GraphData, '/api/pw/GraphData')
+api.add_resource(MainController.Sectors, '/api/pw/Sectors')
+
+
+#  ===============================================
+#  == Old stuff below, shouldn't need to touch  ==
+#  ===============================================
+
+
 # create endpoints like this with flask_restful
 api.add_resource(PageDataControllerV1, '/api/v1/PageData')
 api.add_resource(PageDataControllerV2, '/api/v2/PageData')
-
 
 @app.route('/')
 def home():
