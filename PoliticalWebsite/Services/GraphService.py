@@ -5,6 +5,7 @@ from settings import APP_ROOT
 import requests
 from datetime import datetime, timedelta
 
+
 class GraphService:
 
     KEY = 'TKZU7X5L2H3WYZ9R'
@@ -21,6 +22,52 @@ class GraphService:
 
             for company in sector_data['Companies']:
                 symbol = company['symbol']
+
+                response_object = self.get_response_object(symbol)
+
+                series = response_object['Time Series (Daily)']
+
+                before_data = self.get_surrounding_days(series, date, before=True)
+                day_of = float(series[date.strftime('%Y-%m-%d')]['4. close'])
+                after_data = self.get_surrounding_days(series, date, before=True)
+
+                all_data = before_data + [day_of] + after_data
+                normalized_data = self.normalize_list(all_data)
+                data.append(normalized_data)
+
+            return self.average_lists(data)
+
+
+    def get_surrounding_days(self, series, date, before):
+        modifier = 1 if before == True else -1
+
+        curr_company_data = []
+        day_count = 0
+        day_difference = 0
+        while day_count < 20:
+            day_difference += 1 * modifier
+            current_date = date - timedelta(days=day_difference)
+            dt_string = current_date.strftime('%Y-%m-%d')
+            try:
+                day_data = series[dt_string]
+            except:
+                continue
+            close_value = float(day_data['4. close'])
+            curr_company_data.insert(0, close_value)
+            day_count += 1
+
+        return curr_company_data
+
+
+    def get_response_object(self, symbol):
+        path = os.path.join(APP_ROOT, 'PoliticalWebsite', 'Data', 'Prices.json')
+        with open(path) as prices_file:
+            prices = jsonpickle.decode(prices_file.read())
+
+            if symbol in prices['companies']:
+                data = prices['companies'][symbol]
+                return data
+            else:
                 params = {
                     'function': 'TIME_SERIES_DAILY',
                     'symbol': symbol,
@@ -29,18 +76,26 @@ class GraphService:
                 }
                 response_json = requests.get('https://www.alphavantage.co/query', params)
                 response_object = jsonpickle.decode(response_json.text)
-                series = response_object['Time Series (Daily)']
 
-                curr_company_data = []
+        with open(path, 'w') as prices_file:
+            prices['companies'][symbol] = response_object
+            json_output = jsonpickle.encode(prices)
+            prices_file.write(json_output)
 
-                for i in range(1, 20):
-                    current_date = date - timedelta(days=i)
-                    dt_string = current_date.strftime('%Y-%m-%d')
-                    print(dt_string, file=sys.stdout)
-                    curr_company_data.insert(0, series[dt_string])
+        return response_object
 
-                data.append(curr_company_data)
+    def normalize_list(self, list_in):
+        max_val = max(n for n in list_in)
+        min_val = min(n for n in list_in)
+        normalized_list = list(map(lambda n: (n - min_val) / (max_val - min_val), list_in))
+        return normalized_list
 
+    def average_lists(self, list_of_lists):
+        list_length = len(list_of_lists[0])
+        result = [0] * list_length
+        for i in range(0, list_length):
+            for curr_list in list_of_lists:
+                result[i] += curr_list[i]
+        return list(map(lambda x: x / len(list_of_lists), result))
 
-            return data
 
