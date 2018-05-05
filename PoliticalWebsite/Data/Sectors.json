@@ -5,28 +5,78 @@
               "Name": "Mining",
               "Companies":
                       [
-                        "GoldFieldsLTD",
-                        "BHPWA",
-                        "riotintoAU"
+                        {
+                          "name": "BHB Billiton Limited",
+                          "facebook": "",
+                          "symbol": "BHB.AX"
+                        },
+                        {
+                          "name": "RIO Tinto Limited",
+                          "facebook": "",
+                          "symbol": "RIO.AX"
+                        },
+                        {
+                          "name": "SOUTH32 Limited",
+                          "facebook": "",
+                          "symbol": "S32.AX"
+                        },
+                        {
+                          "name": "Newcrest Mining",
+                          "facebook": "",
+                          "symbol": "NCM.AX"
+                        }
                       ]
             },
             {
-              "Name": "Retail",
+              "Name": "Consumer Staples",
               "Companies":
                       [
-                        "davidjonesstore",
-                        "myer",
-                        "woolworths"
+                       {
+                          "name": "Woolworths Group Limited",
+                          "facebook": "",
+                          "symbol": "WOW.AX"
+                        },
+                        {
+                          "name": "Wesfarmers Limited",
+                          "facebook": "",
+                          "symbol": "WES.AX"
+                        },
+                        {
+                          "name": "Treasury Wine Estate",
+                          "facebook": "",
+                          "symbol": "TWE.AX"
+                        },
+                        {
+                          "name": "The a2 Milk Company",
+                          "facebook": "",
+                          "symbol": "A2M.AX"
+                        }
                       ]
             },
             {
-              "Name": "Banking",
+              "Name": "Financials",
               "Companies":
                       [
-                        "commonwealthbank",
-                        "Westpac",
-                        "ANZAustralia",
-                        "NAB"
+                        {
+                          "name": "Commonwealth Bank",
+                          "facebook": "",
+                          "symbol": "CBA.AX"
+                        },
+                        {
+                          "name": "Westpac Banking Corp",
+                          "facebook": "",
+                          "symbol": "WBC.AX"
+                        },
+                        {
+                          "name": "National Aust. Bank",
+                          "facebook": "",
+                          "symbol": "NAB.AX"
+                        },
+                        {
+                          "name": "ANZ Banking Group Limited",
+                          "facebook": "",
+                          "symbol": "ANZ.AX"
+                        }
                       ]
             }
           ]

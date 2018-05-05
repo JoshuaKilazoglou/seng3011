@@ -1,6 +1,9 @@
 from flask_restful import Resource, reqparse
 from PoliticalWebsite.Services.EventService import EventService
 from PoliticalWebsite.Services.SectorService import SectorService
+from PoliticalWebsite.Services.GraphService import GraphService
+from datetime import datetime
+import sys
 
 
 class Events(Resource):
@@ -38,8 +41,30 @@ class NewsArticles(Resource):
 
 
 class GraphData(Resource):
+    def __init__(self):
+        self.graph_service = GraphService()
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('sector', type=str)
+        self.parser.add_argument('date', type=str)
+
     def get(self):
-        return {
-            'pre_event': [0.4, 0.5, 0.2, 0.5, 0.6, 0.1, 0.7],
-            'post_event': [0.3, 0.7, 0.3, 0.2, 0.4, 0.9, 0.1]
-        }, 200
+        args = self.parser.parse_args()
+
+        sector = args['sector']
+        date_string = args['date']
+
+        date = datetime.strptime(date_string, '%Y-%m-%d')
+
+        return self.graph_service.get_graph_data_by_sector(sector, date), 200
+
+
+
+
+
+
+
+
+
+
+
