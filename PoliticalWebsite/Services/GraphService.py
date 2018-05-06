@@ -27,6 +27,11 @@ class GraphService:
 
                 series = response_object['Time Series (Daily)']
 
+                if date.weekday() == 5:
+                    date = date + timedelta(days=2)
+                elif date.weekday() == 6:
+                    date = date + timedelta(days=1)
+
                 before_data = self.get_surrounding_days(series, date, before=True)
                 day_of = float(series[date.strftime('%Y-%m-%d')]['4. close'])
                 after_data = self.get_surrounding_days(series, date, before=True)
