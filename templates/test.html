@@ -15,6 +15,7 @@ body {
     font-size: 20px;
 }
 .btn{
+    white-space: normal;
     width: 100%;
 }
 
@@ -42,7 +43,7 @@ body {
 
 
 
-<div class="container">
+<div class="container align-middle">
     <div class="col-lg-4  mx-auto">
     <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +53,8 @@ body {
       </div>
     </div>
     </div>
-    <p class="col-lg-3  mx-auto"></p>
+    <br>
+    <p class="col-lg-9  mx-auto" id="EventDesc"></p>
 </div>
 
 
@@ -64,7 +66,7 @@ body {
 
 <script>
 
-
+var response = null;
 $(document).ready(function() {
 
     function getEvents(handle) {
@@ -73,6 +75,7 @@ $(document).ready(function() {
             dataType: "text",
             url: "http://127.0.0.1:5000/api/pw/Events",
             success: function (result) {
+                response = result;
                 handle(result);
 
             }
@@ -86,26 +89,20 @@ $(document).ready(function() {
             $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "<\/a>");
             console.log(("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "</a>"));
         }
-    });
 
+    });
 
     $(document).on('click','a', function(){
         var trig = event.target.id
-        getEvents(function (result,yes) {
-            var obj = JSON.parse(result);
-            for (index in obj.events) {
-                if (obj.events[index]["name"] == trig){
-                    $("p").text(obj.events[index]["description"]);
-                }
-
+        var jsonResponse = JSON.parse(response);
+        for (index in jsonResponse.events){
+            if (jsonResponse.events[index]["name"] == trig){
+                $("#EventDesc").text(jsonResponse.events[index]["description"]);
+                $("#dropdownMenuButton").text(jsonResponse.events[index]["name"]);
             }
-        });
-     //   console.log(event.target.id);
+        }
+
     });
-
-
-
-
 });
 
 
