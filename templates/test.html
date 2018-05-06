@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="../static/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/style.css">
+
+<style>
+body {
+    padding-top: 80px;
+}
+
+
+</style>
+
     <title>Title</title>
 </head>
-<body>
-
     <nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Cool analyser stuff</a>
       <div class="collapse navbar-collapse" id="navbarText">
@@ -25,6 +31,9 @@
         </ul>
       </div>
     </nav>
+<body>
+
+
 <p></p>
 <div class="container">
     <div class="col-lg-3  mx-auto">
@@ -32,20 +41,12 @@
       <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Select An Event
       </button>
-      <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="droppo">
+
       </div>
     </div>
     </div>
 </div>
-<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
 
 
 
@@ -53,18 +54,24 @@
 <script type="text/javascript" src="../static/popper.js"></script>
 <script type="text/javascript" src="../static/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script>
 //start ajax request
-$.ajax({
-   type: "GET",
-   dataType: "text",
-   url: "http://127.0.0.1:5000/api/pw/Events",
-   success: function(result){
-    $.each(result, function (i){
-       $("#div1").append($('<option></option>').val(result[i].events).html(result[i].events));
+$(document).ready(function getEvents() {
+    $.ajax({
+        type: "GET",
+        dataType: "text",
+        url: "http://127.0.0.1:5000/api/pw/Events",
+        success: function (result) {
+            var obj = JSON.parse(result);
+            for (index in obj.events){
+                 $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\">"+obj.events[index]["name"]+"</a>");
+            }
+
+        }
     });
-   }
 });
+
 </script>
 </body>
 </html>
