@@ -72,6 +72,11 @@ def get_outdocs():
 def get_version():
     return render_template("version.html")
 
+@app.route('/test')
+def get_test():
+    return render_template("test.html")
+
+
 @app.route('/gui' , methods=['POST'])
 def gui():
     error = 0
