@@ -34,18 +34,18 @@ body {
 <body>
 
 
-<p></p>
+
 <div class="container">
-    <div class="col-lg-3  mx-auto">
+    <div class="col-lg-4  mx-auto">
     <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Select An Event
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="droppo">
-
       </div>
     </div>
     </div>
+    <p class="col-lg-3  mx-auto"></p>
 </div>
 
 
@@ -56,21 +56,50 @@ body {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
-//start ajax request
-$(document).ready(function getEvents() {
-    $.ajax({
-        type: "GET",
-        dataType: "text",
-        url: "http://127.0.0.1:5000/api/pw/Events",
-        success: function (result) {
-            var obj = JSON.parse(result);
-            for (index in obj.events){
-                 $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\">"+obj.events[index]["name"]+"</a>");
-            }
 
+
+$(document).ready(function() {
+
+    function getEvents(handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: "http://127.0.0.1:5000/api/pw/Events",
+            success: function (result) {
+                handle(result);
+            }
+        });
+    }
+
+
+    getEvents(function (result) {
+        var obj = JSON.parse(result);
+        for (index in obj.events) {
+            $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "<\/a>");
+            console.log(("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "</a>"));
         }
     });
+
+
+    $(document).on('click','a', function(){
+        var trig = event.target.id
+        getEvents(function (result,yes) {
+            var obj = JSON.parse(result);
+            for (index in obj.events) {
+                if (obj.events[index]["name"] == trig){
+                    $("p").text(obj.events[index]["description"]);
+                }
+
+            }
+        });
+     //   console.log(event.target.id);
+    });
+
+
+
+
 });
+
 
 </script>
 </body>
