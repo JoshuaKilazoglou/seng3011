@@ -54,21 +54,15 @@
 <script type="text/javascript" src="../static/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-    $(".dropdown-toggle").dropdown();
-
-});
-</script>
-<script>
 //start ajax request
 $.ajax({
    type: "GET",
    dataType: "text",
    url: "http://127.0.0.1:5000/api/pw/Events",
    success: function(result){
-     $("#div1").html(result);
-    var obj = JSON.parse(result);
-    console.log(result);
+    $.each(result, function (i){
+       $("#div1").append($('<option></option>').val(result[i].events).html(result[i].events));
+    });
    }
 });
 </script>

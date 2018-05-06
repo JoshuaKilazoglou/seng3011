@@ -54,8 +54,6 @@ def get_indocs():
     print(doc)
     return render_template(doc)
 
-
-
 @app.route('/exampleDocs')
 def get_exampledocs():
     return render_template("exampledocs.html")
@@ -73,11 +71,6 @@ def get_outdocs():
 @app.route('/version')
 def get_version():
     return render_template("version.html")
-
-@app.route('/test')
-def get_test():
-    return render_template("test.html")
-
 
 @app.route('/gui' , methods=['POST'])
 def gui():
