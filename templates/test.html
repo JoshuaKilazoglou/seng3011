@@ -7,18 +7,22 @@
 
 <style>
 body {
-    padding-top: 80px;
+    padding-top: 150px;
 }
 .dropdown-menu {
     width: 100%;
     height: 300px;
     font-size: 20px;
 }
-.btn{
+#dropdownMenuButton{
     white-space: normal;
     width: 100%;
 }
-
+.sector{
+    white-space: normal;
+    width: 100%;
+    visibility: hidden;
+}
 </style>
 
     <title>Title</title>
@@ -35,7 +39,6 @@ body {
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
           </li>
-
         </ul>
       </div>
     </nav>
@@ -55,6 +58,14 @@ body {
     </div>
     <br>
     <p class="col-lg-9  mx-auto" id="EventDesc"></p>
+    <br>
+
+
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Mining">Mining</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Consumer Staples">Consumer Staples</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financial</button>
+
+
 </div>
 
 
@@ -67,6 +78,9 @@ body {
 <script>
 
 var response = null;
+var stats = null;
+var currEvent = null;
+var currDate = null;
 $(document).ready(function() {
 
     function getEvents(handle) {
@@ -91,16 +105,48 @@ $(document).ready(function() {
         }
 
     });
+    function getStats(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
+
+            }
+        });
+    }
+
+
 
     $(document).on('click','a', function(){
-        var trig = event.target.id
+        $(".sector").css('visibility','visible');
+
+        var trig = event.target.id;
+        currEvent = event.target.id;
         var jsonResponse = JSON.parse(response);
         for (index in jsonResponse.events){
             if (jsonResponse.events[index]["name"] == trig){
                 $("#EventDesc").text(jsonResponse.events[index]["description"]);
                 $("#dropdownMenuButton").text(jsonResponse.events[index]["name"]);
+                currDate = jsonResponse.events[index]["date"];
             }
         }
+
+    });
+
+    $(".sector").on('click', function(){
+        var trig = event.target.id;
+
+        console.log(currDate);
+        var jsonResponse = JSON.parse(response);
+        var call = "http://127.0.0.1:5000/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
+        console.log(call);
+        getStats(call,function (result) {
+            var obj = JSON.parse(result);
+            console.log(obj);
+        });
 
     });
 });
