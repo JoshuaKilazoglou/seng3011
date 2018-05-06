@@ -68,7 +68,7 @@ $(document).ready(function getEvents() {
     $.ajax({
         type: "GET",
         dataType: "text",
-        url: "http://127.0.0.1:5000/api/pw/Events",
+        url: "/api/pw/Events",
         success: function (result) {
             var obj = JSON.parse(result);
             for (index in obj.events){
