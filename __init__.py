@@ -41,7 +41,9 @@ api.add_resource(PageDataControllerV2, '/api/v2/PageData')
 def home():
     return render_template("index.html")
 
-
+@app.route('/test')
+def test():
+    return render_template("test.html")
 
 @app.route('/inputDocs')
 def get_indocs():
@@ -231,7 +233,6 @@ def gui():
         graph_data = dateline.render_data_uri()
 
     return render_template("gui.html", company1 = responseDict,graph_data=graph_data,graphTitle=graphTitle)
-
 
 
 if __name__ == '__main__':
