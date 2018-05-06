@@ -9,7 +9,14 @@
 body {
     padding-top: 80px;
 }
-
+.dropdown-menu {
+    width: 100%;
+    height: 300px;
+    font-size: 20px;
+}
+.btn{
+    width: 100%;
+}
 
 </style>
 
@@ -67,6 +74,7 @@ $(document).ready(function() {
             url: "http://127.0.0.1:5000/api/pw/Events",
             success: function (result) {
                 handle(result);
+
             }
         });
     }
