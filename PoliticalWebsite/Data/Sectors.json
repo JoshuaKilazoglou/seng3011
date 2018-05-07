@@ -6,18 +6,18 @@
               "Companies":
                       [
                         {
-                          "name": "BHB Billiton Limited",
-                          "facebook": "",
-                          "symbol": "BHB.AX"
+                          "name": "BHP Billiton Limited",
+                          "facebook": "BHPWA",
+                          "symbol": "BHP"
                         },
                         {
                           "name": "RIO Tinto Limited",
-                          "facebook": "",
+                          "facebook": "riotintoAU",
                           "symbol": "RIO.AX"
                         },
                         {
                           "name": "SOUTH32 Limited",
-                          "facebook": "",
+                          "facebook": "South32-Worsley-Alumina-258660471198876",
                           "symbol": "S32.AX"
                         },
                         {

@@ -26,6 +26,7 @@ api.add_resource(MainController.Events, '/api/pw/Events')
 api.add_resource(MainController.NewsArticles, '/api/pw/NewsArticles')
 api.add_resource(MainController.GraphData, '/api/pw/GraphData')
 api.add_resource(MainController.Sectors, '/api/pw/Sectors')
+api.add_resource(MainController.PostSentiment, '/api/pw/PostSentiment')
 
 
 #  ===============================================
