@@ -4,3 +4,5 @@ jsonpickle
 facebook-sdk
 aylienapiclient
 pygal
+pip install newsapi-python
+newsapi

@@ -1,7 +1,6 @@
-Total time to make 20 requests is 2.5071539878845215 seconds
-Total time to make 50 requests is 5.633832931518555 seconds
-Total time to make 100 requests is 10.246432065963745 seconds
-Total time to make 500 requests is 45.21708106994629 seconds
-Total time to make 1000 requests is 90.72299695014954 seconds
-Total time to make 2000 requests is 176.05104398727417 seconds
-
+Total time to make 1 requests is 1.138915777206421 seconds
+Total time to make 5 requests is 1.2511930465698242 seconds 
+Total time to make 10 requests is 1.2708182334899902 seconds 
+Total time to make 100 requests is 7.670474290847778 seconds 
+Total time to make 1000 requests is 59.76381707191467 seconds 
+https://positive-vibes.seng3011.com/v2.0/api/company/147632815308858?includePosts=true&startDate=2018-01-01T02%3A16%3A06.470Z&endDate=2018-04-21T02%3A16%3A06.470Z
