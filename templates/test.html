@@ -22,6 +22,9 @@ body {
     width: 100%;
     visibility: hidden;
 }
+.dropdown-item{
+    white-space: normal;
+}
 #myDiv{
     visibility: visible;
     width: 100%;
@@ -273,13 +276,13 @@ $(document).ready(function() {
       return year + '-' + month + '-' + day;
     }
     function setEmoji(value,imageid,cap) {
-        if (value <= 0.20){
+        if (value <= (-0.6)){
             $("#"+imageid).attr("src","../static/20.jpg");
-        } else if (value <= 0.4) {
+        } else if (value <= (-0.2)) {
             $("#"+imageid).attr("src","../static/40.jpg");
-        } else if (value <= 0.6){
+        } else if (value <= (0.2)){
             $("#"+imageid).attr("src","../static/60.jpg");
-        } else if (value <= 0.8){
+        } else if (value <= (0.6)){
             $("#"+imageid).attr("src","../static/80.jpg");
         } else {
             $("#"+imageid).attr("src","../static/100.jpg");
