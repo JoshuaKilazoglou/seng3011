@@ -31,21 +31,25 @@ body {
     text-align: center;
     visibility: hidden;
 }
+.yeet{
+    text-align: center;
+    visibility: hidden;
+}
+.caption {
+    display: block;
+}
 </style>
 
     <title>Title</title>
 </head>
     <nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Cool analyser stuff</a>
+      <a class="navbar-brand" href="#">Political Financial Analysis</a>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav ml-md-auto d-md-flex">
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span class="sr-only">(current)</span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
           </li>
         </ul>
       </div>
@@ -75,6 +79,33 @@ body {
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financial</button>
     <div id="myDiv"></div>
 
+    <div class="container yeet">
+        <h3 class="selectsect yeet" >Facebook Sentiment Analysis</h3>
+        <div class="row">
+             <div class="col-sm">
+                 <strong>Before</strong>
+             </div>
+             <div class="col-sm">
+                 <strong>After</strong>
+             </div>
+        </div>
+      <div class="row">
+        <div class="col-sm">
+          <img src="../static/20.jpg" id="beforepic">
+            <span class="caption" id="beforecap">not below</span>
+        </div>
+        <div class="col-sm">
+          <img src="../static/20.jpg" id="afterpic">
+            <span class="caption" id="aftercap">below</span>
+        </div>
+      </div>
+    </div>
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
 
 
@@ -146,6 +177,21 @@ $(document).ready(function() {
 
     });
 
+    function getFB(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
+
+            }
+        });
+    }
+
+
+
     $(".sector").on('click', function(){
         var trig = event.target.id;
 
@@ -198,7 +244,18 @@ $(document).ready(function() {
             Plotly.newPlot('myDiv', data,layout,{displayModeBar: false});
             $("#myDiv").css('visibility','visible');
         });
+        call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
+        getFB(call,function(result){
+            var obj = JSON.parse(result);
+            var before = obj["before"];
+            var after = obj["after"];
+            console.log(before);
+            console.log(after);
+            setEmoji(after,"afterpic","aftercap");
+            setEmoji(before,"beforepic","beforecap");
 
+        });
+         $('.yeet').css('visibility','visible');
     });
     function getFormattedDate(date) {
       var year = date.getFullYear();
@@ -210,6 +267,20 @@ $(document).ready(function() {
       day = day.length > 1 ? day : '0' + day;
 
       return year + '-' + month + '-' + day;
+    }
+    function setEmoji(value,imageid,cap) {
+        if (value <= 0.20){
+            $("#"+imageid).attr("src","../static/20.jpg");
+        } else if (value <= 0.4) {
+            $("#"+imageid).attr("src","../static/40.jpg");
+        } else if (value <= 0.6){
+            $("#"+imageid).attr("src","../static/60.jpg");
+        } else if (value <= 0.8){
+            $("#"+imageid).attr("src","../static/80.jpg");
+        } else {
+            $("#"+imageid).attr("src","../static/100.jpg");
+        }
+        $("#"+cap).text(value);
     }
 
 
