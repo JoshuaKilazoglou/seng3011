@@ -27,6 +27,10 @@ body {
     width: 100%;
     height: 700px;
 }
+.selectsect{
+    text-align: center;
+    visibility: hidden;
+}
 </style>
 
     <title>Title</title>
@@ -62,6 +66,7 @@ body {
     </div>
     <br>
     <p class="col-lg-9  mx-auto" id="EventDesc"></p>
+      <h3 class="selectsect" >Select a sector to see the effects</h3>
     <br>
 
 
@@ -126,6 +131,7 @@ $(document).ready(function() {
 
     $(document).on('click','a', function(){
         $(".sector").css('visibility','visible');
+        $(".selectsect").css('visibility','visible');
         $("#myDiv").css('visibility','hidden');
         var trig = event.target.id;
         currEvent = event.target.id;
