@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../static/bootstrap.min.css">
 
 <style>
+
 body {
     padding-top: 150px;
 }
@@ -97,7 +98,7 @@ body {
 
     <br>
     <br>
-
+    <div class="dynamic">
         <h3 class="graphtitle selectsect" id="graphtitle"></h3>
 
     <br>
@@ -140,6 +141,7 @@ body {
         </div>
       </div>
     </div>
+        </div>
     <br>
 <br>
     <br>
@@ -202,7 +204,9 @@ $(document).ready(function() {
     $(document).on('click','a', function(){
         $(".sector").css('visibility','visible');
         $(".selectsect").css('visibility','visible');
+        $(".graphtitle").css('visibility','hidden');
         $(".graph").css('visibility','hidden');
+        $(".yeet").css('visibility','hidden');
         var trig = event.target.id;
         currEvent = event.target.id;
         var jsonResponse = JSON.parse(response);
@@ -233,7 +237,9 @@ $(document).ready(function() {
 
     $(".sector").on('click', function(){
         var trig = event.target.id;
-
+        $(".graphtitle").css('visibility','hidden');
+        $(".graph").css('visibility','hidden');
+        $(".yeet").css('visibility','hidden');
         console.log(currDate);
         var jsonResponse = JSON.parse(response);
         var call = "http://127.0.0.1:5000/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
@@ -284,6 +290,8 @@ $(document).ready(function() {
             ];
             Plotly.newPlot('myDiv', data,layout,{displayModeBar: false});
             $(".graph").css('visibility','visible');
+            $(".graphtitle").css('visibility','visible');
+            $('.yeet').css('visibility','visible');
         });
         var call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
         getFB(call,function(result){
