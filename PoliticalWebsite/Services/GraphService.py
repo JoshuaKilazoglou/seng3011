@@ -28,20 +28,25 @@ class GraphService:
                 series = response_object['Time Series (Daily)']
 
                 if date.weekday() == 5:
+                    print('fri', file=sys.stdout)
                     date = date + timedelta(days=2)
                 elif date.weekday() == 6:
+                    print('fri', file=sys.stdout)
                     date = date + timedelta(days=1)
 
-                before_data = self.get_surrounding_days(series, date, before=True)
-                day_of = float(series[date.strftime('%Y-%m-%d')]['4. close'])
-                after_data = self.get_surrounding_days(series, date, before=True)
+                try:
+                    before_data = self.get_surrounding_days(series, date, before=True)
+                    day_of = float(series[date.strftime('%Y-%m-%d')]['4. close'])
+                    after_data = self.get_surrounding_days(series, date, before=True)
+                except Exception as ex:
+                    print(ex, file=sys.stdout)
+                    continue
 
                 all_data = before_data + [day_of] + after_data
                 normalized_data = self.normalize_list(all_data)
                 data.append(normalized_data)
 
             return self.average_lists(data)
-
 
     def get_surrounding_days(self, series, date, before):
         modifier = 1 if before == True else -1
