@@ -3,6 +3,7 @@ from PoliticalWebsite.Services.EventService import EventService
 from PoliticalWebsite.Services.SectorService import SectorService
 from PoliticalWebsite.Services.GraphService import GraphService
 from PoliticalWebsite.Services.PostSentimentService import PostSentimentService
+from PoliticalWebsite.Services.NewsService import NewsService
 from datetime import datetime
 import sys
 
@@ -24,21 +25,22 @@ class Sectors(Resource):
 
 
 class NewsArticles(Resource):
-    def get(self):
-        return {
-            'articles':
-            [
-                {
-                    'headline': 'headline1',
-                    'text': 'text1'
-                },
-                {
-                    'headline': 'headline2',
-                    'text': 'text2'
-                }
-            ]
+    def __init__(self):
+        self.news_service = NewsService()
 
-        }, 200
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('query', type=str)
+        self.parser.add_argument('date', type=str)
+
+    def get(self):
+        args = self.parser.parse_args()
+
+        query = args['query']
+        date_string = args['date']
+
+        date = datetime.strptime(date_string, '%Y-%m-%d')
+
+        return self.news_service.get_news_response(query, date), 200
 
 
 class GraphData(Resource):
