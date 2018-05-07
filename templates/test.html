@@ -204,7 +204,7 @@ $(document).ready(function() {
 
         console.log(currDate);
         var jsonResponse = JSON.parse(response);
-        var call = "/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
+        var call = "http://127.0.0.1:5000/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
         console.log(call);
         getStats(call,function (result) {
             var eventDate = new Date(currDate);
