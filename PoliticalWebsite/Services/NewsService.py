@@ -16,6 +16,7 @@ class NewsService:
             'q' : query,
             'from' : before_date,
             'to' : after_date,
+            'sortBy': "popularity",
             'apiKey' : self.KEY
         }
 
