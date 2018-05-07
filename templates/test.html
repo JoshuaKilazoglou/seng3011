@@ -44,6 +44,9 @@ body {
 .graph{
     visibility: hidden;
 }
+.selectevent{
+    text-align: center;
+}
 </style>
 
     <title>Title</title>
@@ -94,12 +97,12 @@ body {
 
     <br>
     <br>
-     <div class="col-lg-4  mx-auto">
-        <h3 class="graphtitle" id="graphtitle"></h3>
-     </div>
+
+        <h3 class="graphtitle selectsect" id="graphtitle"></h3>
+
     <br>
     <span class="graph">
-        following graph data is derived by taking the prices of top companies in the selected sector and averaging them for the period 20 days before and 20 days after the selected event.
+        The following graph data is derived by taking the prices of top companies in the selected sector and averaging them for the period 20 days before and 20 days after the selected event.
         Before being averages the price data is normalised to a value between 0 and 1 which is referred to as a price index. This is only a relative measure of price, useful for comparing the
         price performance in the period before and after the chosen event, but no more than that.
     </span>
@@ -109,7 +112,7 @@ body {
     <br>
 
     <div class="container yeet">
-        <h3 class="selectsect yeet" >Facebook Sentiment Analysis</h3>
+        <h3 class="yeet" >Facebook Sentiment Analysis</h3>
         <br>
         <span class="yeet">
             The following data represents an analysis of the "positivity" of facebook posts made by the companies representing your chosen sector in the 20 days before and 20 days after the chosen event took place.
@@ -312,10 +315,9 @@ $(document).ready(function() {
       return year + '-' + month + '-' + day;
     }
     function setEmoji(value,imageid,cap) {
-
-        if (value <= (-0.6)){
+        if (value <= (-0.4)){
             $("#"+imageid).attr("src","../static/20.jpg");
-        } else if (value <= (-0.2)) {
+        } else if (value <= (-0.8)) {
             $("#"+imageid).attr("src","../static/40.jpg");
         } else if (value <= (0.2)){
             $("#"+imageid).attr("src","../static/60.jpg");
