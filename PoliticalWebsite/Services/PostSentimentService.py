@@ -43,8 +43,8 @@ class PostSentimentService:
                     ta = TextBlob(m)
                     ma_sentiment_sum += ta.sentiment.polarity
 
-                mb_sentiment = mb_sentiment_sum / len(messages_before)
-                ma_sentiment = ma_sentiment_sum / len(messages_after)
+                mb_sentiment = mb_sentiment_sum / len(messages_before) if len(messages_before) > 0 else 0
+                ma_sentiment = ma_sentiment_sum / len(messages_after) if len(messages_after) > 0 else 0
 
         return {
             "before": mb_sentiment,

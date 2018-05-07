@@ -33,22 +33,22 @@
                       [
                        {
                           "name": "Woolworths Group Limited",
-                          "facebook": "",
+                          "facebook": "woolworths",
                           "symbol": "WOW.AX"
                         },
                         {
                           "name": "Wesfarmers Limited",
-                          "facebook": "",
+                          "facebook": "coles",
                           "symbol": "WES.AX"
                         },
                         {
                           "name": "Treasury Wine Estate",
-                          "facebook": "",
+                          "facebook": "TreasuryWineEstatesTWE",
                           "symbol": "TWE.AX"
                         },
                         {
                           "name": "The a2 Milk Company",
-                          "facebook": "",
+                          "facebook": "a2milkAU",
                           "symbol": "A2M.AX"
                         }
                       ]
@@ -59,23 +59,75 @@
                       [
                         {
                           "name": "Commonwealth Bank",
-                          "facebook": "",
+                          "facebook": "commonwealthbank",
                           "symbol": "CBA.AX"
                         },
                         {
                           "name": "Westpac Banking Corp",
-                          "facebook": "",
+                          "facebook": "Westpac",
                           "symbol": "WBC.AX"
                         },
                         {
                           "name": "National Aust. Bank",
-                          "facebook": "",
+                          "facebook": "NAB",
                           "symbol": "NAB.AX"
                         },
                         {
                           "name": "ANZ Banking Group Limited",
-                          "facebook": "",
+                          "facebook": "ANZAustralia",
                           "symbol": "ANZ.AX"
+                        }
+                      ]
+            },
+            {
+              "Name": "Real Estate",
+              "Companies":
+                      [
+                        {
+                          "name": "Goodman Group Stapled Securities FP",
+                          "facebook":"",
+                          "symbol": "GMG.AX"
+                        },
+                        {
+                          "name": "Lendlease Group Unit/ Stapled Securities",
+                          "facebook":"",
+                          "symbol": "LLC.AX"
+                        },
+                        {
+                          "name": "Stockland Units/ Stapled Securities",
+                          "facebook":"StocklandLiving",
+                          "symbol": "SGP.AX"
+                        },
+                        {
+                          "name": "Dexus Units FP Stapled",
+                          "facebook":"dexusau",
+                          "symbol": "DXS.AX"
+                        }
+                      ]
+            },
+            {
+              "Name": "Information Technology",
+              "Companies":
+                      [
+                        {
+                          "name": "REA Group",
+                          "facebook":"realestateAus",
+                          "symbol": "REA.AX"
+                        },
+                        {
+                          "name": "Computershare Limited",
+                          "facebook":"ComputershareCPU",
+                          "symbol": "CPU.AX"
+                        },
+                        {
+                          "name": "Xero Limited",
+                          "facebook":"Xero.Accounting",
+                          "symbol": "XRO.AX"
+                        },
+                        {
+                          "name": "Carsales.com Limited",
+                          "facebook":"carsales.com.au",
+                          "symbol": "CAR.AX"
                         }
                       ]
             }
