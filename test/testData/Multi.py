@@ -16,7 +16,7 @@ async def main(num_requests):
         ]
 
 def test():
-    requests = [20,50,100,500,1000,2000]
+    requests = [1,5,10,100,1000]
     file = open("Multi.txt", "a")
     for i in requests:
         loop = asyncio.get_event_loop() # basically prepping one of the threads to loop
