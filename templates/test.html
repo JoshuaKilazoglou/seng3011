@@ -38,6 +38,9 @@ body {
 .caption {
     display: block;
 }
+.graph{
+    visibility: hidden;
+}
 </style>
 
     <title>Title</title>
@@ -77,7 +80,9 @@ body {
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Mining">Mining</button>
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Consumer Staples">Consumer Staples</button>
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financial</button>
-    <div id="myDiv"></div>
+    <div class="graph" id="myDiv"></div>
+    <span class="graph">This graph data is derived from top 10 companies etc etc etc </span>
+    <br>
 
     <div class="container yeet">
         <h3 class="selectsect yeet" >Facebook Sentiment Analysis</h3>
@@ -100,6 +105,7 @@ body {
         </div>
       </div>
     </div>
+    <span class="yeet">This graph data is derived from top 10 companies etc etc etc </span>
 <br>
     <br>
     <br>
@@ -163,7 +169,8 @@ $(document).ready(function() {
     $(document).on('click','a', function(){
         $(".sector").css('visibility','visible');
         $(".selectsect").css('visibility','visible');
-        $("#myDiv").css('visibility','hidden');
+        $(".graph").css('visibility','hidden');
+        $(".yeet").css('visibility','hidden');
         var trig = event.target.id;
         currEvent = event.target.id;
         var jsonResponse = JSON.parse(response);
@@ -242,9 +249,9 @@ $(document).ready(function() {
                 }
             ];
             Plotly.newPlot('myDiv', data,layout,{displayModeBar: false});
-            $("#myDiv").css('visibility','visible');
+            $(".graph").css('visibility','visible');
         });
-        call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
+        var call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
         getFB(call,function(result){
             var obj = JSON.parse(result);
             var before = obj["before"];
@@ -253,9 +260,9 @@ $(document).ready(function() {
             console.log(after);
             setEmoji(after,"afterpic","aftercap");
             setEmoji(before,"beforepic","beforecap");
-
+            $('.yeet').css('visibility','visible');
         });
-         $('.yeet').css('visibility','visible');
+
     });
     function getFormattedDate(date) {
       var year = date.getFullYear();
