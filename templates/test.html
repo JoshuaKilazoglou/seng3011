@@ -62,10 +62,15 @@ body {
 
 
 <div class="container align-middle">
+    <h3 class="selectevent" >Select a political event to view its effects on stock price</h3>
+        <br>
+        <br>
+        <br>
     <div class="col-lg-4  mx-auto">
+
     <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Select An Event
+          Event
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="droppo">
       </div>
@@ -73,19 +78,43 @@ body {
     </div>
     <br>
     <p class="col-lg-9  mx-auto" id="EventDesc"></p>
-      <h3 class="selectsect" >Select a sector to see the effects</h3>
+      <h3 class="selectsect" >Select a sector to see the effects from the event</h3>
     <br>
 
 
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Mining">Mining</button>
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Consumer Staples">Consumer Staples</button>
-    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financial</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financials</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Real Estate">Real Estate</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Information Technology">Information Technology</button>
+
+
+    <br>
+    <br>
+     <div class="col-lg-4  mx-auto">
+        <h3 class="graphtitle" id="graphtitle"></h3>
+     </div>
+    <br>
+    <span class="graph">
+        following graph data is derived by taking the prices of top companies in the selected sector and averaging them for the period 20 days before and 20 days after the selected event.
+        Before being averages the price data is normalised to a value between 0 and 1 which is referred to as a price index. This is only a relative measure of price, useful for comparing the
+        price performance in the period before and after the chosen event, but no more than that.
+    </span>
     <div class="graph" id="myDiv"></div>
-    <span class="graph">This graph data is derived from top 10 companies etc etc etc </span>
+    <br>
+    <br>
     <br>
 
     <div class="container yeet">
         <h3 class="selectsect yeet" >Facebook Sentiment Analysis</h3>
+        <br>
+        <span class="yeet">
+            The following data represents an analysis of the "positivity" of facebook posts made by the companies representing your chosen sector in the 20 days before and 20 days after the chosen event took place.
+            This is calculated with the natural language processing library, TextBlob. Values range between 100% negative and 100% positive, with 0% representing a completely neutral set of facebook posts.
+            This can be useful to see how a company's social media presence adapts to news that affects it's industry, and in turn, stock prices.
+        </span>
+        <br>
+        <br>
         <div class="row">
              <div class="col-sm">
                  <strong>Before</strong>
@@ -105,7 +134,7 @@ body {
         </div>
       </div>
     </div>
-    <span class="yeet">This graph data is derived from top 10 companies etc etc etc </span>
+    <br>
 <br>
     <br>
     <br>
@@ -218,8 +247,10 @@ $(document).ready(function() {
                 z.push(getFormattedDate(last20));
                 last20.setDate(last20.getDate() + 1);
             }
+
+            graphtitle.innerText = 'Stock Fluctuations in the ' + trig + " Sector";
             var layout = {
-              title: 'Stock Fluctuations in the ' + trig + " Sector",
+              //title: 'Stock Fluctuations in the ' + trig + " Sector",
               annotations: [
                 {
                   x: currDate,
@@ -237,7 +268,7 @@ $(document).ready(function() {
                 title: 'Dates',
               },
               yaxis: {
-                title: 'Change in stock prices',
+                title: 'Price index',
               }
 
             };
@@ -256,11 +287,16 @@ $(document).ready(function() {
             var obj = JSON.parse(result);
             var before = obj["before"];
             var after = obj["after"];
-            console.log(before);
-            console.log(after);
-            setEmoji(after,"afterpic","aftercap");
-            setEmoji(before,"beforepic","beforecap");
-            $('.yeet').css('visibility','visible');
+
+            if((before === 0) && (after === 0)) {
+
+            } else {
+                console.log(before);
+                console.log(after);
+                setEmoji(after,"afterpic","aftercap");
+                setEmoji(before,"beforepic","beforecap");
+                $('.yeet').css('visibility','visible');
+            }
         });
 
     });
@@ -276,18 +312,22 @@ $(document).ready(function() {
       return year + '-' + month + '-' + day;
     }
     function setEmoji(value,imageid,cap) {
-        if (value <= 0.20){
+        if (value <= -0.60){
             $("#"+imageid).attr("src","../static/20.jpg");
-        } else if (value <= 0.4) {
+        } else if (value <= -0.2) {
             $("#"+imageid).attr("src","../static/40.jpg");
-        } else if (value <= 0.6){
+        } else if (value <= 0.2){
             $("#"+imageid).attr("src","../static/60.jpg");
-        } else if (value <= 0.8){
+        } else if (value <= 0.6){
             $("#"+imageid).attr("src","../static/80.jpg");
         } else {
             $("#"+imageid).attr("src","../static/100.jpg");
         }
-        $("#"+cap).text(value);
+        if (value > 0) {
+            $("#"+cap).text(Math.floor(value * 100) + '% Positive');
+        } else {
+            $("#"+cap).text(Math.floor(value * 100) + '% Negative');
+        }
     }
 
 
