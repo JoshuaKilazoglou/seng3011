@@ -37,7 +37,7 @@ class GraphService:
                 try:
                     before_data = self.get_surrounding_days(series, date, before=True)
                     day_of = float(series[date.strftime('%Y-%m-%d')]['4. close'])
-                    after_data = self.get_surrounding_days(series, date, before=True)
+                    after_data = self.get_surrounding_days(series, date, before=False)
                 except Exception as ex:
                     print(ex, file=sys.stdout)
                     continue
