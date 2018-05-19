@@ -5,22 +5,20 @@ import requests
 
 class NewsService:
 
-    KEY = '4eea50884ef543f0ae370973bbeb2fcf'
+    KEY = '737bb7a0-03e3-4636-8819-d2d18664d778'
 
-    def get_news_response(self, query, date):
-
-        before_date = date - timedelta(days=20)
-        after_date = date + timedelta(days=20)
+    def get_news_response(self, query, from_date, to_date):
+        # dates are in format of YYYY-MM-DD
 
         params = {
-            'q' : query,
-            'from' : before_date,
-            'to' : after_date,
-            'sortBy': "popularity",
+            'from-date' : from_date,
+            'to-date' : to_date,
+            'show-fields': 'headline',
+            'q': query,
             'apiKey' : self.KEY
         }
 
-        response_json = requests.get('https://newsapi.org/v2/everything?', params)
+        response_json = requests.get('https://content/guardianapis.com/search?', params)
         response_object = jsonpickle.decode(response_json.text)
 
         return response_object
