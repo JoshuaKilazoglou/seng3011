@@ -15,10 +15,10 @@ class NewsService:
             'to-date' : to_date,
             'show-fields': 'headline',
             'q': query,
-            'apiKey' : self.KEY
+            'api-key' : self.KEY
         }
 
-        response_json = requests.get('https://content/guardianapis.com/search?', params)
+        response_json = requests.get('https://content.guardianapis.com/search', params)
         response_object = jsonpickle.decode(response_json.text)
 
         return response_object
