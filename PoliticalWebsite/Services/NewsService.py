@@ -13,7 +13,7 @@ class NewsService:
         params = {
             'from-date' : from_date,
             'to-date' : to_date,
-            'show-fields': 'headline',
+            'show-fields': 'headline,',
             'q': query,
             'api-key' : self.KEY
         }

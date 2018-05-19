@@ -31,17 +31,17 @@ class NewsArticles(Resource):
 
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('query', type=str)
-        self.parser.add_argument('date', type=str)
+        self.parser.add_argument('from_date', type=str)
+        self.parser.add_argument('to_date', type=str)
 
     def get(self):
         args = self.parser.parse_args()
 
         query = args['query']
-        date_string = args['date']
+        from_date = args['from_date']
+        to_date = args['to_date']
 
-        date = datetime.strptime(date_string, '%Y-%m-%d')
-
-        return self.news_service.get_news_response(query, date), 200
+        return self.news_service.get_news_response(query, from_date, to_date), 200
 
 
 class GraphData(Resource):
