@@ -4,6 +4,7 @@ from PoliticalWebsite.Services.SectorService import SectorService
 from PoliticalWebsite.Services.GraphService import GraphService
 from PoliticalWebsite.Services.PostSentimentService import PostSentimentService
 from PoliticalWebsite.Services.NewsService import NewsService
+from PoliticalWebsite.Services.PriceEffectService import PriceEffectService
 from datetime import datetime
 import sys
 
@@ -60,6 +61,24 @@ class GraphData(Resource):
         date = datetime.strptime(date_string, '%Y-%m-%d')
 
         return self.graph_service.get_graph_data_by_sector(sector, date), 200
+
+class PriceEffect(Resource):
+    def __init__(self):
+        self.price_effect_service = PriceEffectService()
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('sector', type=str)
+        self.parser.add_argument('date', type=str)
+
+    def get(self):
+        args = self.parser.parse_args()
+
+        sector = args['sector']
+        date_string = args['date']
+
+        date = datetime.strptime(date_string, '%Y-%m-%d')
+
+        return self.price_effect_service.get_price_effect(sector, date), 200
 
 
 class PostSentiment(Resource):
