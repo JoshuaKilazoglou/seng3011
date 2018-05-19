@@ -85,6 +85,9 @@ body {
     </div>
     <br>
     <p class="col-lg-9  mx-auto" id="EventDesc"></p>
+    <iframe width="420" height="600"
+src="" class="sector" id="video">
+</iframe>
       <h3 class="selectsect" >Select a sector to see the effects from the event</h3>
     <br>
 
@@ -214,6 +217,7 @@ $(document).ready(function() {
             if (jsonResponse.events[index]["name"] == trig){
                 $("#EventDesc").text(jsonResponse.events[index]["description"]);
                 $("#dropdownMenuButton").text(jsonResponse.events[index]["name"]);
+                $("#video").attr("src",jsonResponse.events[index]["video"]);
                 currDate = jsonResponse.events[index]["date"];
             }
         }

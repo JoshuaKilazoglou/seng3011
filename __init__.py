@@ -25,6 +25,7 @@ client = textapi.Client("84fb5f8e", "42902aee45567b5e27375393a0ac4c70")
 api.add_resource(MainController.Events, '/api/pw/Events')
 api.add_resource(MainController.NewsArticles, '/api/pw/NewsArticles')
 api.add_resource(MainController.GraphData, '/api/pw/GraphData')
+api.add_resource(MainController.PriceEffect, '/api/pw/PriceEffect')
 api.add_resource(MainController.Sectors, '/api/pw/Sectors')
 api.add_resource(MainController.PostSentiment, '/api/pw/PostSentiment')
 
