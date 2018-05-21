@@ -47,6 +47,10 @@ def home():
 def test():
     return render_template("test.html")
 
+@app.route('/frontpage')
+def front():
+    return render_template("frontpage.html")
+
 @app.route('/inputDocs')
 def get_indocs():
     version = request.args.get('version')
