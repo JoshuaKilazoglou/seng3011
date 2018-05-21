@@ -65,6 +65,17 @@ body {
     .pillbutton{
         display:inline-block
     }
+#LoadingImage {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    z-index: 100;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+}
 
 </style>
 
@@ -84,8 +95,12 @@ body {
     </nav>
 <body>
 
+<div id = "LoadingImage" style="display:none">
+        <img src="../static/4.gif" style="position:absolute;margin:auto;top:0;left:0;right:0;bottom:0;">
+</div>
 
 <div class="container align-middle">
+
 
     <h3 class="selectevent" >Select a political event to view its effects on stock price</h3>
         <br>
@@ -238,6 +253,7 @@ $(document).ready(function() {
       return year + '-' + month + '-' + day;
     }
     function getEvents(handle) {
+        $("#LoadingImage").show();
         return $.ajax({
             type: "GET",
             dataType: "text",
@@ -245,7 +261,7 @@ $(document).ready(function() {
             success: function (result) {
                 response = result;
                 handle(result);
-
+                $("#LoadingImage").hide();
             }
         });
     }
@@ -260,6 +276,7 @@ $(document).ready(function() {
 
     });
     function getStats(url,handle) {
+        $("#LoadingImage").show();
         return $.ajax({
             type: "GET",
             dataType: "text",
@@ -267,17 +284,19 @@ $(document).ready(function() {
             success: function (result) {
                 stats = result;
                 handle(result);
-
+                $("#LoadingImage").hide();
             }
         });
     }
 
     function getNews(url,handle) {
+        $("#LoadingImage").show();
         return $.ajax({
             type: "GET",
             dataType: "text",
             url: url,
             success: function (result) {
+                $("#LoadingImage").hide();
                 stats = result;
                 handle(result);
 
@@ -366,6 +385,7 @@ $(document).ready(function() {
     });
 
     function getFB(url,handle) {
+        $("#LoadingImage").show();
         return $.ajax({
             type: "GET",
             dataType: "text",
@@ -373,11 +393,13 @@ $(document).ready(function() {
             success: function (result) {
                 stats = result;
                 handle(result);
+                $("#LoadingImage").hide();
 
             }
         });
     }
    function getTwitter(url,handle) {
+        $("#LoadingImage").show();
         return $.ajax({
             type: "GET",
             dataType: "jsonp",
@@ -385,7 +407,7 @@ $(document).ready(function() {
             success: function (result) {
                 stats = result;
                 handle(result);
-
+                $("#LoadingImage").hide();
             }
         });
     }
