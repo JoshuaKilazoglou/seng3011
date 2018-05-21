@@ -58,6 +58,40 @@ body {
 .table{
     visibility: hidden;
 }
+
+.twitterbox{
+    visibility: hidden;
+}
+    .pillbutton{
+        display:inline-block
+    }
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 30px;
+    background: #f5f5f5;
+    color: #444;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top:hover {
+    background: #e9ebec;
+}
+#back-to-top.show {
+    opacity: 1;
+}
+#content {
+    height: 2000px;
+}
 </style>
 
     <title>Title</title>
@@ -77,8 +111,8 @@ body {
 <body>
 
 
-
 <div class="container align-middle">
+
     <h3 class="selectevent" >Select a political event to view its effects on stock price</h3>
         <br>
 
@@ -106,6 +140,20 @@ body {
 src="" class="sector" id="video">
 </iframe>
 <br>
+<div class="twitterbox " align="center">
+<ul class="nav nav-pills pillbutton" id="pills-tab" role="tablist" >
+  <li class="nav-item" >
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Famous Tweets</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Regular Tweets</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active famous" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"></div>
+  <div class="tab-pane fade non-famous" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
+</div>
+</div>
 
       <h3 class="selectsect" >Select a sector to see the effects from the event</h3>
     <br>
@@ -189,8 +237,9 @@ src="" class="sector" id="video">
 <br>
 <br>
 <br>
+    <div id="content">Scroll &darr;</div>
+<a href="#" id="back-to-top" title="Back to top">&uarr;</a>
 </div>
-
 
 
 <script type="text/javascript" src="../static/jquery-3.0.0.slim.js"></script>
@@ -205,7 +254,6 @@ var stats = null;
 var currEvent = null;
 var currDate = null;
 $(document).ready(function() {
-
     function getFormattedDate(date) {
       var year = date.getFullYear();
 
@@ -265,6 +313,7 @@ $(document).ready(function() {
         });
     }
     $(document).on('click','.dropdown-item', function(){
+        $(".twitterbox").css('visibility','visible');
         $(".sector").css('visibility','visible');
         $(".selectsect").css('visibility','visible');
         $(".graphtitle").css('visibility','hidden');
@@ -275,14 +324,32 @@ $(document).ready(function() {
         var trig = event.target.id;
         currEvent = event.target.id;
         var jsonResponse = JSON.parse(response);
-
+        $(".famous").empty();
+        $(".non-famous").empty();
         for (index in jsonResponse.events){
             if (jsonResponse.events[index]["name"] == trig){
                 $("#EventDesc").text(jsonResponse.events[index]["description"]);
                 $("#dropdownMenuButton").text(jsonResponse.events[index]["name"]);
                 $("#video").attr("src",jsonResponse.events[index]["video"]);
                 currDate = jsonResponse.events[index]["date"];
+                for (index2 in jsonResponse.events[index]["tweets"]){
+                    var tweet = index2;
+                    for (index3 in jsonResponse.events[index]["tweets"][index2]){
+                        var call = "https://publish.twitter.com/oembed?url=" + jsonResponse.events[index]["tweets"][index2][index3];
+                        if (index2 == "famous") {
+                            getTwitter(call, function (result) {
+                                $(".famous").append(result.html);
+                            });
+                        } else {
+                            getTwitter(call, function (result) {
+                                $(".non-famous").append(result.html);
+                            });
+                        }
+                    }
+
+                }
             }
+
         }
 
         var eventDate = new Date(currDate);
@@ -338,7 +405,18 @@ $(document).ready(function() {
             }
         });
     }
+   function getTwitter(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "jsonp",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
 
+            }
+        });
+    }
 
 
     $(".sector").on('click', function(){
@@ -468,7 +546,27 @@ $(document).ready(function() {
 
 });
 
-
+if ($('#back-to-top').length) {
+    var scrollTrigger = 100, // px
+        backToTop = function () {
+            var scrollTop = $(window).scrollTop();
+            if (scrollTop > scrollTrigger) {
+                $('#back-to-top').addClass('show');
+            } else {
+                $('#back-to-top').removeClass('show');
+            }
+        };
+    backToTop();
+    $(window).on('scroll', function () {
+        backToTop();
+    });
+    $('#back-to-top').on('click', function (e) {
+        e.preventDefault();
+        $('html,body').animate({
+            scrollTop: 0
+        }, 700);
+    });
+}
 </script>
 </body>
 </html>
