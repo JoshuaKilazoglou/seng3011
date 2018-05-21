@@ -42,7 +42,7 @@ class PriceEffectService:
                     # short_after = self.get_surrounding_days(series, date, False, 3)
                     # medium_before = self.get_surrounding_days(series, date, True, 50)
                     # medium_after = self.get_surrounding_days(series, date, False, 50)
-                    print('b', file=sys.stdout)
+
                     long_before = self.get_surrounding_days(series, date, True, 365)
                     long_after = self.get_surrounding_days(series, date, False, 365)
 
