@@ -18,9 +18,12 @@ class PriceEffectService:
             sectors = jsonpickle.decode(eventsJson.read())['Sectors']
             sector_data = list(filter(lambda x: x['Name'] == sector, sectors))[0]
 
-            short = []
-            medium = []
-            long = []
+            result = {
+                "short": 0,
+                "medium": 0,
+                "long": 0
+            }
+            companies_included = 0
 
             for company in sector_data['Companies']:
                 symbol = company['symbol']
@@ -42,36 +45,48 @@ class PriceEffectService:
                     print('b', file=sys.stdout)
                     long_before = self.get_surrounding_days(series, date, True, 365)
                     long_after = self.get_surrounding_days(series, date, False, 365)
-                    print('a', file=sys.stdout)
+
+                    long_increase = self.percentage_difference(self.average_value(long_before),
+                                                               self.average_value(long_after))
+                    medium_increase = self.percentage_difference(self.average_value(long_before[335:]),
+                                                                 self.average_value(long_after[:395]))
+                    short_increase = self.percentage_difference(self.average_value(long_before[362:]),
+                                                                self.average_value(long_after[:368]))
+
+                    result["short"] += short_increase * 100 # as a percentage
+                    result["medium"] += medium_increase * 100
+                    result["long"] += long_increase * 100
+                    companies_included += 1
+
+                    print('good', file=sys.stdout)
                 except Exception as ex:
                     print(ex, file=sys.stdout)
                     continue
 
-
-                # n_short = self.normalize_list(short_before + short_after)
-                # n_medium = self.normalize_list(medium_before + medium_after)
-                n_long = self.normalize_list(long_before + long_after)
-
                 # short.append(n_short)
                 # medium.append(n_medium)
-                long.append(n_long)
+
 
             # short_list = self.average_lists(short)
             # medium_list = self.average_lists(medium)
-            long_list = self.average_lists(long)
+            # long_list = self.average_lists(long)
+            #
+            # s_before_avg = self.average_value(long_list[362:365])
+            # s_after_avg = self.average_value(long_list[365:368])
+            # m_before_avg = self.average_value(long_list[315:365])
+            # m_after_avg = self.average_value(long_list[365:415])
+            # l_before_avg = self.average_value(long_list[:365])
+            # l_after_avg = self.average_value(long_list[365:])
 
-            s_before_avg = self.average_value(long_list[362:365])
-            s_after_avg = self.average_value(long_list[365:368])
-            m_before_avg = self.average_value(long_list[315:365])
-            m_after_avg = self.average_value(long_list[365:415])
-            l_before_avg = self.average_value(long_list[:365])
-            l_after_avg = self.average_value(long_list[365:])
+            # s_diff = self.percentage_difference(s_before_avg, s_after_avg)
+            # m_diff = self.percentage_difference(m_before_avg, m_after_avg)
+            # l_diff = self.percentage_difference(l_before_avg, l_after_avg)
 
-            s_diff = self.percentage_difference(s_before_avg, s_after_avg)
-            m_diff = self.percentage_difference(m_before_avg, m_after_avg)
-            l_diff = self.percentage_difference(l_before_avg, l_after_avg)
+            result["short"] /= companies_included
+            result["medium"] /= companies_included
+            result["long"] /= companies_included
 
-            return { "short": s_diff * 100, "medium": m_diff * 100, "long": l_diff * 100 }
+            return result
 
     def percentage_difference(self, a, b):
         return abs(a - b) / ((a+b)/ 2)
