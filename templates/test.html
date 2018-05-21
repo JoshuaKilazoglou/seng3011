@@ -406,6 +406,7 @@ $(document).ready(function() {
             var last20 = new Date(eventDate);
             var next20 = new Date(eventDate);
             var obj = JSON.parse(result);
+            var graphData = obj["graphData"];
             last20.setDate(last20.getDate() - 20);
             next20.setDate(next20.getDate() + 20);
             var z = [];
@@ -420,7 +421,7 @@ $(document).ready(function() {
               annotations: [
                 {
                   x: currDate,
-                  y: obj[20],
+                  y: graphData[20],
                   xref: 'x',
                   yref: 'y',
                   text: currEvent,
@@ -441,7 +442,7 @@ $(document).ready(function() {
 
             var data = [
                 {   x: z,
-                    y:obj,
+                    y:graphData,
                     type: 'scatter'
                 }
             ];
@@ -449,28 +450,29 @@ $(document).ready(function() {
             $(".graph").css('visibility','visible');
             $(".graphtitle").css('visibility','visible');
             $('.yeet').css('visibility','visible');
+            var short = Math.round(obj["short"] * 100) / 100; ///round to 2 decimal places
+            var medium = Math.round(obj["medium"] * 100) / 100; ///round to 2 decimal places
+            var long = Math.round(obj["long"] * 100) / 100; ///round to 2 decimal places
+            if (short) {
+                $(".tabledata").append("<td class=\"tableentry text-success\">" + short + "</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + short + "</td>");
+            }
+             if (medium > 0) {
+                 $(".tabledata").append("<td class=\"tableentry text-success\">"+ medium +"</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + medium + "</td>");
+            }
+             if (long > 0) {
+                $(".tabledata").append("<td class=\"tableentry text-success\">" + long + "</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + long + "</td>");
+            }
         });
         $(".tableentry").remove();
         var call = "http://127.0.0.1:5000/api/pw/PriceEffect?sector=" + trig + "&date=" + currDate;
         getStats(call,function(result){
             var obj = JSON.parse(result);
-            if (obj["short"] > 0) {
-                $(".tabledata").append("<td class=\"tableentry text-success\">" + obj["short"] + "</td>");
-            }else {
-                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + obj["short"] + "</td>");
-            }
-             if (obj["short"] > 0) {
-                 $(".tabledata").append("<td class=\"tableentry text-success\">"+obj["medium"]+"</td>");
-            }else {
-                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + obj["medium"] + "</td>");
-            }
-             if (obj["short"] > 0) {
-                $(".tabledata").append("<td class=\"tableentry text-success\">" + obj["long"] + "</td>");
-            }else {
-                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + obj["long"] + "</td>");
-            }
-
-
         });
 
 
