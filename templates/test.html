@@ -1,448 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="../static/bootstrap.min.css">
-        <style>
-            body {
-            padding-top: 150px;
-            }
-            .dropdown-menu {
-            width: 100%;
-            font-size: 20px;
-            }
-            #dropdownMenuButton{
-            white-space: normal;
-            width: 100%;
-            }
-            .sector{
-            white-space: normal;
-            width: 100%;
-            visibility: hidden;
-            }
-            .dropdown-item{
-            white-space: normal;
-            }
-            #myDiv{
-            visibility: visible;
-            width: 100%;
-            height: 700px;
-            }
-            .selectsect{
-            text-align: center;
-            visibility: hidden;
-            }
-            .yeet{
-            text-align: center;
-            visibility: hidden;
-            }
-            .caption {
-            display: block;
-            }
-            .graph{
-            visibility: hidden;
-            }
-            .selectevent {
-            text-align: center;
-            }
-            .headings{
-            visibility: hidden;
-            text-align: center;
-            }
-            .cards{
-            text-align: center;
-            }
-            .table{
-            visibility: hidden;
-            }
-        </style>
-        <title>Title</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+
+<style>
+
+body {
+    padding-top: 150px;
+}
+.dropdown-menu {
+    width: 100%;
+    font-size: 20px;
+}
+#dropdownMenuButton{
+    white-space: normal;
+    width: 100%;
+}
+.sector{
+    white-space: normal;
+    width: 100%;
+    visibility: hidden;
+}
+.dropdown-item{
+    white-space: normal;
+}
+#myDiv{
+    visibility: visible;
+    width: 100%;
+    height: 700px;
+}
+.selectsect{
+    text-align: center;
+    visibility: hidden;
+}
+.yeet{
+    text-align: center;
+    visibility: hidden;
+}
+.caption {
+    display: block;
+}
+.graph{
+    visibility: hidden;
+}
+.selectevent {
+    text-align: center;
+}
+.headings{
+     visibility: hidden;
+    text-align: center;
+}
+    .cards{
+        text-align: center;
+    }
+.table{
+    visibility: hidden;
+}
+</style>
+
+    <title>Title</title>
+</head>
     <nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Political Financial Analysis</a>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav ml-md-auto d-md-flex">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                    <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+      <a class="navbar-brand" href="#">Political Financial Analysis</a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav ml-md-auto d-md-flex">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
-    <body>
-        <div class="container align-middle">
-            <h3 class="selectevent" >Select a political event to view its effects on stock price</h3>
-            <br>
-            <br>
-            <div class="col-lg-5  mx-auto">
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Event
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="droppo">
-                    </div>
-                </div>
-            </div>
-            <br>
-            <p class="col-lg-9  mx-auto" id="EventDesc"></p>
-            <h3 class="headings" >More on This Event</h3>
-            <br>
-            <div class="card-deck news"></div>
-            <br>
-            <br>
-            <iframe width="420" height="600"
-                src="" class="sector" id="video">
-            </iframe>
-            <br>
-            <h3 class="selectsect" >Select a sector to see the effects from the event</h3>
-            <br>
-            <button type="button" class="btn btn-outline-primary mb-3 sector" id="Mining">Mining</button>
-            <button type="button" class="btn btn-outline-primary mb-3 sector" id="Consumer Staples">Consumer Staples</button>
-            <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financials</button>
-            <button type="button" class="btn btn-outline-primary mb-3 sector" id="Real Estate">Real Estate</button>
-            <button type="button" class="btn btn-outline-primary mb-3 sector" id="Information Technology">Information Technology</button>
-            <br>
-            <br>
-            <div class="dynamic">
-                <h3 class="graphtitle selectsect" id="graphtitle"></h3>
-                <br>
-                <span class="graph">
-                The following graph data is derived by taking the prices of top companies in the selected sector and averaging them for the period 20 days before and 20 days after the selected event.
-                Before being averages the price data is normalised to a value between 0 and 1 which is referred to as a price index. This is only a relative measure of price, useful for comparing the
-                price performance in the period before and after the chosen event, but no more than that.
-                </span>
-                <div class="graph" id="myDiv"></div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Term Period</th>
-                            <th scope="col">Short (1 month)</th>
-                            <th scope="col">Medium (3 months) </th>
-                            <th scope="col">Long (6 months)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="tabledata">
-                            <td>Percentage Change</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <br>
-                <br>
-                <div class="container yeet">
-                    <h3 class="yeet" >Facebook Sentiment Analysis</h3>
-                    <br>
-                    <span class="yeet">
-                    The following data represents an analysis of the "positivity" of facebook posts made by the companies representing your chosen sector in the 20 days before and 20 days after the chosen event took place.
-                    This is calculated with the natural language processing library, TextBlob. Values range between 100% negative and 100% positive, with 0% representing a completely neutral set of facebook posts.
-                    This can be useful to see how a company's social media presence adapts to news that affects it's industry, and in turn, stock prices.
-                    </span>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm">
-                            <strong>Before</strong>
-                        </div>
-                        <div class="col-sm">
-                            <strong>After</strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <img src="../static/20.jpg" id="beforepic">
-                            <span class="caption" id="beforecap">No Facebook Data</span>
-                        </div>
-                        <div class="col-sm">
-                            <img src="../static/20.jpg" id="afterpic">
-                            <span class="caption" id="aftercap">No Facebook Data</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+<body>
+
+
+
+<div class="container align-middle">
+    <h3 class="selectevent" >Select a political event to view its effects on stock price</h3>
+        <br>
+
+        <br>
+    <div class="col-lg-5  mx-auto">
+
+    <div class="dropdown">
+      <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Event
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="droppo">
+      </div>
+    </div>
+    </div>
+    <br>
+    <p class="col-lg-9  mx-auto" id="EventDesc"></p>
+
+ <h3 class="headings" >More on This Event</h3>
+    <br>
+<div class="card-deck news">
+</div>
+<br>
+    <br>
+    <iframe width="420" height="600"
+src="" class="sector" id="video">
+</iframe>
+<br>
+
+      <h3 class="selectsect" >Select a sector to see the effects from the event</h3>
+    <br>
+
+
+
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Mining">Mining</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Consumer Staples">Consumer Staples</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Financials">Financials</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Real Estate">Real Estate</button>
+    <button type="button" class="btn btn-outline-primary mb-3 sector" id="Information Technology">Information Technology</button>
+
+
+    <br>
+    <br>
+    <div class="dynamic">
+        <h3 class="graphtitle selectsect" id="graphtitle"></h3>
+
+    <br>
+    <span class="graph">
+        The following graph data is derived by taking the prices of top companies in the selected sector and averaging them for the period 20 days before and 20 days after the selected event.
+        Before being averages the price data is normalised to a value between 0 and 1 which is referred to as a price index. This is only a relative measure of price, useful for comparing the
+        price performance in the period before and after the chosen event, but no more than that.
+    </span>
+    <div class="graph" id="myDiv"></div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Term Period</th>
+      <th scope="col">Short (1 month)</th>
+      <th scope="col">Medium (3 months) </th>
+       <th scope="col">Long (6 months)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tabledata">
+        <td>Percentage Change</td>
+    </tr>
+
+
+  </tbody>
+</table>
+    <br>
+    <br>
+    <br>
+
+    <div class="container yeet">
+        <h3 class="yeet" >Facebook Sentiment Analysis</h3>
+        <br>
+        <span class="yeet">
+            The following data represents an analysis of the "positivity" of facebook posts made by the companies representing your chosen sector in the 20 days before and 20 days after the chosen event took place.
+            This is calculated with the natural language processing library, TextBlob. Values range between 100% negative and 100% positive, with 0% representing a completely neutral set of facebook posts.
+            This can be useful to see how a company's social media presence adapts to news that affects it's industry, and in turn, stock prices.
+        </span>
+        <br>
+        <br>
+        <div class="row">
+             <div class="col-sm">
+                 <strong>Before</strong>
+             </div>
+             <div class="col-sm">
+                 <strong>After</strong>
+             </div>
         </div>
-        <script type="text/javascript" src="../static/jquery-3.0.0.slim.js"></script>
-        <script type="text/javascript" src="../static/popper.js"></script>
-        <script type="text/javascript" src="../static/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <script>
-            var response = null;
-            var stats = null;
-            var currEvent = null;
-            var currDate = null;
-            $(document).ready(function() {
+      <div class="row">
+        <div class="col-sm">
+          <img src="../static/20.jpg" id="beforepic">
+            <span class="caption" id="beforecap">No Facebook Data</span>
+        </div>
+        <div class="col-sm">
+          <img src="../static/20.jpg" id="afterpic">
+            <span class="caption" id="aftercap">No Facebook Data</span>
+        </div>
+      </div>
+    </div>
+        </div>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
 
-                function getFormattedDate(date) {
-                  var year = date.getFullYear();
 
-                  var month =  (1 + date.getMonth()).toString();
-                  month = month.length > 1 ? month : '0' + month;
 
-                  var day = date.getDate().toString();
-                  day = day.length > 1 ? day : '0' + day;
+<script type="text/javascript" src="../static/jquery-3.0.0.slim.js"></script>
+<script type="text/javascript" src="../static/popper.js"></script>
+<script type="text/javascript" src="../static/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
 
-                  return year + '-' + month + '-' + day;
+var response = null;
+var stats = null;
+var currEvent = null;
+var currDate = null;
+$(document).ready(function() {
+
+    function getFormattedDate(date) {
+      var year = date.getFullYear();
+
+      var month =  (1 + date.getMonth()).toString();
+      month = month.length > 1 ? month : '0' + month;
+
+      var day = date.getDate().toString();
+      day = day.length > 1 ? day : '0' + day;
+
+      return year + '-' + month + '-' + day;
+    }
+    function getEvents(handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: "http://127.0.0.1:5000/api/pw/Events",
+            success: function (result) {
+                response = result;
+                handle(result);
+
+            }
+        });
+    }
+
+
+    getEvents(function (result) {
+        var obj = JSON.parse(result);
+        for (index in obj.events) {
+            $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "<\/a>");
+
+        }
+
+    });
+    function getStats(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
+
+            }
+        });
+    }
+
+    function getNews(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
+
+            }
+        });
+    }
+    $(document).on('click','.dropdown-item', function(){
+        $(".sector").css('visibility','visible');
+        $(".selectsect").css('visibility','visible');
+        $(".graphtitle").css('visibility','hidden');
+        $(".headings").css('visibility','visible');
+        $(".graph").css('visibility','hidden');
+        $(".yeet").css('visibility','hidden');
+        $(".table").css('visibility','hidden');
+        var trig = event.target.id;
+        currEvent = event.target.id;
+        var jsonResponse = JSON.parse(response);
+
+        for (index in jsonResponse.events){
+            if (jsonResponse.events[index]["name"] == trig){
+                $("#EventDesc").text(jsonResponse.events[index]["description"]);
+                $("#dropdownMenuButton").text(jsonResponse.events[index]["name"]);
+                $("#video").attr("src",jsonResponse.events[index]["video"]);
+                currDate = jsonResponse.events[index]["date"];
+            }
+        }
+
+        var eventDate = new Date(currDate);
+        var last20 = new Date(eventDate);
+        var next20 = new Date(eventDate);
+        last20.setDate(last20.getDate() - 60);
+        next20.setDate(next20.getDate() + 60);
+        last20 = getFormattedDate(last20);
+        next20 = getFormattedDate(next20);
+        var call = "http://127.0.0.1:5000/api/pw/NewsArticles?query=" + trig + "&from_date=" + last20 + "&to_date=" + next20;
+        console.log(call);
+        $( ".newslink" ).remove();
+         $( ".card" ).remove();
+        getNews(call,function(result){
+            var jsonResponse = JSON.parse(result);
+            var three = 0;
+            console.log(jsonResponse);
+            for (index in jsonResponse.response["results"]){
+                if(three != 3) {
+                    console.log(jsonResponse.response["results"][index]["webTitle"]);
+                    $('.news').append("<a target=\"_blank\" href=\""+jsonResponse.response["results"][index]["webUrl"]+"\" <div class=\"card\">\n" +
+                        "    <img class=\"card-img-top\" src=\"../static/news.png\" alt=\"No image\">\n" +
+                        "    <div class=\"card-body\">\n" +
+                        "      <h5 class=\"card-title\">" + jsonResponse.response["results"][index]["webTitle"]  + "</h5>\n" +
+                        "    </div>\n" +
+                            " <div class=\"card-footer\">\n" +
+                        "      <small class=\"text-muted\">"+jsonResponse.response["results"][index]["webPublicationDate"]+"</small>\n" +
+                        "    </div>"+
+                        "  </div>"+
+                            "</a>"
+                    );
+
+                    three++;
+                } else {
+                    break
                 }
-                function getEvents(handle) {
-                    return $.ajax({
-                        type: "GET",
-                        dataType: "text",
-                        url: "http://127.0.0.1:5000/api/pw/Events",
-                        success: function (result) {
-                            response = result;
-                            handle(result);
+            }
 
-                        }
-                    });
+        });
+
+
+    });
+
+    function getFB(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
+
+            }
+        });
+    }
+
+
+
+    $(".sector").on('click', function(){
+        var trig = event.target.id;
+        $(".graphtitle").css('visibility','hidden');
+        $(".graph").css('visibility','hidden');
+        $(".yeet").css('visibility','hidden');
+
+        console.log(currDate);
+        var jsonResponse = JSON.parse(response);
+        var call = "http://127.0.0.1:5000/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
+        console.log(call);
+        getStats(call,function (result) {
+            var eventDate = new Date(currDate);
+            var last20 = new Date(eventDate);
+            var next20 = new Date(eventDate);
+            var obj = JSON.parse(result);
+            var graphData = obj["graphData"]
+            last20.setDate(last20.getDate() - 20);
+            next20.setDate(next20.getDate() + 20);
+            var z = [];
+            while (last20 <= next20) {
+                z.push(getFormattedDate(last20));
+                last20.setDate(last20.getDate() + 1);
+            }
+
+            graphtitle.innerText = 'Stock Fluctuations in the ' + trig + " Sector";
+            var layout = {
+              //title: 'Stock Fluctuations in the ' + trig + " Sector",
+              annotations: [
+                {
+                  x: currDate,
+                  y: graphData[20],
+                  xref: 'x',
+                  yref: 'y',
+                  text: currEvent,
+                  showarrow: true,
+                  arrowhead: 5,
+                  ax: 0,
+                  ay: -40
                 }
+              ],
+              xaxis: {
+                title: 'Dates',
+              },
+              yaxis: {
+                title: 'Price index',
+              }
 
+            };
 
-                getEvents(function (result) {
-                    var obj = JSON.parse(result);
-                    for (index in obj.events) {
-                        $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "<\/a>");
-
-                    }
-
-                });
-                function getStats(url,handle) {
-                    return $.ajax({
-                        type: "GET",
-                        dataType: "text",
-                        url: url,
-                        success: function (result) {
-                            stats = result;
-                            handle(result);
-
-                        }
-                    });
+            var data = [
+                {   x: z,
+                    y:graphData,
+                    type: 'scatter'
                 }
+            ];
+            Plotly.newPlot('myDiv', data,layout,{displayModeBar: false});
+            $(".graph").css('visibility','visible');
+            $(".graphtitle").css('visibility','visible');
+            $('.yeet').css('visibility','visible');
 
-                function getNews(url,handle) {
-                    return $.ajax({
-                        type: "GET",
-                        dataType: "text",
-                        url: url,
-                        success: function (result) {
-                            stats = result;
-                            handle(result);
-
-                        }
-                    });
-                }
-                $(document).on('click','.dropdown-item', function(){
-                    $(".sector").css('visibility','visible');
-                    $(".selectsect").css('visibility','visible');
-                    $(".graphtitle").css('visibility','hidden');
-                    $(".headings").css('visibility','visible');
-                    $(".graph").css('visibility','hidden');
-                    $(".yeet").css('visibility','hidden');
-                    $(".table").css('visibility','hidden');
-                    var trig = event.target.id;
-                    currEvent = event.target.id;
-                    var jsonResponse = JSON.parse(response);
-
-                    for (index in jsonResponse.events){
-                        if (jsonResponse.events[index]["name"] == trig){
-                            $("#EventDesc").text(jsonResponse.events[index]["description"]);
-                            $("#dropdownMenuButton").text(jsonResponse.events[index]["name"]);
-                            $("#video").attr("src",jsonResponse.events[index]["video"]);
-                            currDate = jsonResponse.events[index]["date"];
-                        }
-                    }
-
-                    var eventDate = new Date(currDate);
-                    var last20 = new Date(eventDate);
-                    var next20 = new Date(eventDate);
-                    last20.setDate(last20.getDate() - 60);
-                    next20.setDate(next20.getDate() + 60);
-                    last20 = getFormattedDate(last20);
-                    next20 = getFormattedDate(next20);
-                    var call = "http://127.0.0.1:5000/api/pw/NewsArticles?query=" + trig + "&from_date=" + last20 + "&to_date=" + next20;
-                    console.log(call);
-                    $( ".newslink" ).remove();
-                     $( ".card" ).remove();
-                    getNews(call,function(result){
-                        var jsonResponse = JSON.parse(result);
-                        var three = 0;
-                        console.log(jsonResponse);
-                        for (index in jsonResponse.response["results"]){
-                            if(three != 3) {
-                                console.log(jsonResponse.response["results"][index]["webTitle"]);
-                                $('.news').append("<a target=\"_blank\" href=\""+jsonResponse.response["results"][index]["webUrl"]+"\" <div class=\"card\">\n" +
-                                    "    <img class=\"card-img-top\" src=\"../static/news.png\" alt=\"No image\">\n" +
-                                    "    <div class=\"card-body\">\n" +
-                                    "      <h5 class=\"card-title\">" + jsonResponse.response["results"][index]["webTitle"]  + "</h5>\n" +
-                                    "    </div>\n" +
-                                        " <div class=\"card-footer\">\n" +
-                                    "      <small class=\"text-muted\">"+jsonResponse.response["results"][index]["webPublicationDate"]+"</small>\n" +
-                                    "    </div>"+
-                                    "  </div>"+
-                                        "</a>"
-                                );
-
-                                three++;
-                            } else {
-                                break
-                            }
-                        }
-
-                    });
-
-
-                });
-
-                function getFB(url,handle) {
-                    return $.ajax({
-                        type: "GET",
-                        dataType: "text",
-                        url: url,
-                        success: function (result) {
-                            stats = result;
-                            handle(result);
-
-                        }
-                    });
-                }
+            var short = Math.round(obj["short"] * 100) / 100; ///round to 2 decimal places
+            var medium = Math.round(obj["medium"] * 100) / 100; ///round to 2 decimal places
+            var long = Math.round(obj["long"] * 100) / 100; ///round to 2 decimal places
+            if (short) {
+                $(".tabledata").append("<td class=\"tableentry text-success\">" + short + "</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + short + "</td>");
+            }
+             if (medium > 0) {
+                 $(".tabledata").append("<td class=\"tableentry text-success\">"+ medium +"</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + medium + "</td>");
+            }
+             if (long > 0) {
+                $(".tabledata").append("<td class=\"tableentry text-success\">" + long + "</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + long + "</td>");
+            }
+        });
+        $(".tableentry").remove();
 
 
 
-                $(".sector").on('click', function(){
-                    var trig = event.target.id;
-                    $(".graphtitle").css('visibility','hidden');
-                    $(".graph").css('visibility','hidden');
-                    $(".yeet").css('visibility','hidden');
+        var call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
+        getFB(call,function(result){
+            var obj = JSON.parse(result);
+            var before = obj["before"];
+            var after = obj["after"];
 
-                    console.log(currDate);
-                    var jsonResponse = JSON.parse(response);
-                    var call = "http://127.0.0.1:5000/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
-                    console.log(call);
-                    getStats(call,function (result) {
-                        var eventDate = new Date(currDate);
-                        var last20 = new Date(eventDate);
-                        var next20 = new Date(eventDate);
-                        var obj = JSON.parse(result);
-                        var graphData = obj["graphData"]
-                        last20.setDate(last20.getDate() - 20);
-                        next20.setDate(next20.getDate() + 20);
-                        var z = [];
-                        while (last20 <= next20) {
-                            z.push(getFormattedDate(last20));
-                            last20.setDate(last20.getDate() + 1);
-                        }
+            if((before === 0) && (after === 0)) {
 
-                        graphtitle.innerText = 'Stock Fluctuations in the ' + trig + " Sector";
-                        var layout = {
-                          //title: 'Stock Fluctuations in the ' + trig + " Sector",
-                          annotations: [
-                            {
-                              x: currDate,
-                              y: graphData[20],
-                              xref: 'x',
-                              yref: 'y',
-                              text: currEvent,
-                              showarrow: true,
-                              arrowhead: 5,
-                              ax: 0,
-                              ay: -40
-                            }
-                          ],
-                          xaxis: {
-                            title: 'Dates',
-                          },
-                          yaxis: {
-                            title: 'Price index',
-                          }
+            } else {
+                console.log(before);
+                console.log(after);
+                setEmoji(after,"afterpic","aftercap");
+                setEmoji(before,"beforepic","beforecap");
+                $('.yeet').css('visibility','visible');
+            }
+        });
+        $(".table").css('visibility','visible');
 
-                        };
+    });
 
-                        var data = [
-                            {   x: z,
-                                y:graphData,
-                                type: 'scatter'
-                            }
-                        ];
-                        Plotly.newPlot('myDiv', data,layout,{displayModeBar: false});
-                        $(".graph").css('visibility','visible');
-                        $(".graphtitle").css('visibility','visible');
-                        $('.yeet').css('visibility','visible');
-
-                        var short = Math.round(obj["short"] * 100) / 100; ///round to 2 decimal places
-                        var medium = Math.round(obj["medium"] * 100) / 100; ///round to 2 decimal places
-                        var long = Math.round(obj["long"] * 100) / 100; ///round to 2 decimal places
-                        if (short) {
-                            $(".tabledata").append("<td class=\"tableentry text-success\">" + short + "</td>");
-                        }else {
-                             $(".tabledata").append("<td class=\"tableentry text-danger\">" + short + "</td>");
-                        }
-                         if (medium > 0) {
-                             $(".tabledata").append("<td class=\"tableentry text-success\">"+ medium +"</td>");
-                        }else {
-                             $(".tabledata").append("<td class=\"tableentry text-danger\">" + medium + "</td>");
-                        }
-                         if (long > 0) {
-                            $(".tabledata").append("<td class=\"tableentry text-success\">" + long + "</td>");
-                        }else {
-                             $(".tabledata").append("<td class=\"tableentry text-danger\">" + long + "</td>");
-                        }
-                    });
-                    $(".tableentry").remove();
+    function setEmoji(value,imageid,cap) {
+        if (value <= (-0.4)){
+            $("#"+imageid).attr("src","../static/20.jpg");
+        } else if (value <= (-0.8)) {
+            $("#"+imageid).attr("src","../static/40.jpg");
+        } else if (value <= (0.2)){
+            $("#"+imageid).attr("src","../static/60.jpg");
+        } else if (value <= (0.6)){
+            $("#"+imageid).attr("src","../static/80.jpg");
+        } else {
+            $("#"+imageid).attr("src","../static/100.jpg");
+        }
+        if (value > 0) {
+            $("#"+cap).text(Math.floor(value * 100) + '% Positive');
+        } else {
+            $("#"+cap).text(Math.floor(value * 100) + '% Negative');
+        }
+    }
 
 
 
-                    var call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
-                    getFB(call,function(result){
-                        var obj = JSON.parse(result);
-                        var before = obj["before"];
-                        var after = obj["after"];
-
-                        if((before === 0) && (after === 0)) {
-
-                        } else {
-                            console.log(before);
-                            console.log(after);
-                            setEmoji(after,"afterpic","aftercap");
-                            setEmoji(before,"beforepic","beforecap");
-                            $('.yeet').css('visibility','visible');
-                        }
-                    });
-                    $(".table").css('visibility','visible');
-
-                });
-
-                function setEmoji(value,imageid,cap) {
-                    if (value <= (-0.4)){
-                        $("#"+imageid).attr("src","../static/20.jpg");
-                    } else if (value <= (-0.8)) {
-                        $("#"+imageid).attr("src","../static/40.jpg");
-                    } else if (value <= (0.2)){
-                        $("#"+imageid).attr("src","../static/60.jpg");
-                    } else if (value <= (0.6)){
-                        $("#"+imageid).attr("src","../static/80.jpg");
-                    } else {
-                        $("#"+imageid).attr("src","../static/100.jpg");
-                    }
-                    if (value > 0) {
-                        $("#"+cap).text(Math.floor(value * 100) + '% Positive');
-                    } else {
-                        $("#"+cap).text(Math.floor(value * 100) + '% Negative');
-                    }
-                }
+});
 
 
-
-            });
-
-
-        </script>
-    </body>
+</script>
+</body>
 </html>
