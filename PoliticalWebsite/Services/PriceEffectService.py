@@ -30,48 +30,48 @@ class PriceEffectService:
                 series = response_object['Time Series (Daily)']
 
                 if date.weekday() == 5:
-                    print('fri', file=sys.stdout)
                     date = date + timedelta(days=2)
                 elif date.weekday() == 6:
-                    print('fri', file=sys.stdout)
                     date = date + timedelta(days=1)
 
                 try:
-                    short_before = self.get_surrounding_days(series, date, True, 3)
-                    short_after = self.get_surrounding_days(series, date, False, 3)
-                    medium_before = self.get_surrounding_days(series, date, True, 50)
-                    medium_after = self.get_surrounding_days(series, date, False, 50)
+                    # short_before = self.get_surrounding_days(series, date, True, 3)
+                    # short_after = self.get_surrounding_days(series, date, False, 3)
+                    # medium_before = self.get_surrounding_days(series, date, True, 50)
+                    # medium_after = self.get_surrounding_days(series, date, False, 50)
+                    print('b', file=sys.stdout)
                     long_before = self.get_surrounding_days(series, date, True, 365)
                     long_after = self.get_surrounding_days(series, date, False, 365)
+                    print('a', file=sys.stdout)
                 except Exception as ex:
                     print(ex, file=sys.stdout)
                     continue
 
 
-                n_short = self.normalize_list(short_before + short_after)
-                n_medium = self.normalize_list(medium_before + medium_after)
+                # n_short = self.normalize_list(short_before + short_after)
+                # n_medium = self.normalize_list(medium_before + medium_after)
                 n_long = self.normalize_list(long_before + long_after)
 
-                short.append(n_short)
-                medium.append(n_medium)
+                # short.append(n_short)
+                # medium.append(n_medium)
                 long.append(n_long)
 
-            short_list = self.average_lists(short)
-            medium_list = self.average_lists(medium)
+            # short_list = self.average_lists(short)
+            # medium_list = self.average_lists(medium)
             long_list = self.average_lists(long)
 
-            s_before_avg = self.average_value(short_list[:3])
-            s_after_avg = self.average_value(short_list[3:])
-            m_before_avg = self.average_value(short_list[:50])
-            m_after_avg = self.average_value(short_list[50:])
-            l_before_avg = self.average_value(short_list[:365])
-            l_after_avg = self.average_value(short_list[365:])
+            s_before_avg = self.average_value(long_list[362:365])
+            s_after_avg = self.average_value(long_list[365:368])
+            m_before_avg = self.average_value(long_list[315:365])
+            m_after_avg = self.average_value(long_list[365:415])
+            l_before_avg = self.average_value(long_list[:365])
+            l_after_avg = self.average_value(long_list[365:])
 
             s_diff = self.percentage_difference(s_before_avg, s_after_avg)
             m_diff = self.percentage_difference(m_before_avg, m_after_avg)
             l_diff = self.percentage_difference(l_before_avg, l_after_avg)
 
-            return { "short": s_diff, "medium": m_diff, "long": l_diff }
+            return { "short": s_diff * 100, "medium": m_diff * 100, "long": l_diff * 100 }
 
     def percentage_difference(self, a, b):
         return abs(a - b) / ((a+b)/ 2)
