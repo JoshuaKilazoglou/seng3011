@@ -55,7 +55,9 @@ body {
     .cards{
         text-align: center;
     }
-
+.table{
+    visibility: hidden;
+}
 </style>
 
     <title>Title</title>
@@ -94,7 +96,7 @@ body {
     <br>
     <p class="col-lg-9  mx-auto" id="EventDesc"></p>
 
- <h3 class="headings" >Relevant News Articles</h3>
+ <h3 class="headings" >More on This Event</h3>
     <br>
 <div class="card-deck news">
 </div>
@@ -129,6 +131,23 @@ src="" class="sector" id="video">
         price performance in the period before and after the chosen event, but no more than that.
     </span>
     <div class="graph" id="myDiv"></div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Term Period</th>
+      <th scope="col">Short (1 month)</th>
+      <th scope="col">Medium (3 months) </th>
+       <th scope="col">Long (6 months)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tabledata">
+        <td>Percentage Change</td>
+    </tr>
+
+
+  </tbody>
+</table>
     <br>
     <br>
     <br>
@@ -154,22 +173,22 @@ src="" class="sector" id="video">
       <div class="row">
         <div class="col-sm">
           <img src="../static/20.jpg" id="beforepic">
-            <span class="caption" id="beforecap">not below</span>
+            <span class="caption" id="beforecap">No Facebook Data</span>
         </div>
         <div class="col-sm">
           <img src="../static/20.jpg" id="afterpic">
-            <span class="caption" id="aftercap">below</span>
+            <span class="caption" id="aftercap">No Facebook Data</span>
         </div>
       </div>
     </div>
         </div>
     <br>
 <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </div>
 
 
@@ -245,13 +264,14 @@ $(document).ready(function() {
             }
         });
     }
-    $(document).on('click','a', function(){
+    $(document).on('click','.dropdown-item', function(){
         $(".sector").css('visibility','visible');
         $(".selectsect").css('visibility','visible');
         $(".graphtitle").css('visibility','hidden');
         $(".headings").css('visibility','visible');
         $(".graph").css('visibility','hidden');
         $(".yeet").css('visibility','hidden');
+        $(".table").css('visibility','hidden');
         var trig = event.target.id;
         currEvent = event.target.id;
         var jsonResponse = JSON.parse(response);
@@ -326,6 +346,7 @@ $(document).ready(function() {
         $(".graphtitle").css('visibility','hidden');
         $(".graph").css('visibility','hidden');
         $(".yeet").css('visibility','hidden');
+
         console.log(currDate);
         var jsonResponse = JSON.parse(response);
         var call = "http://127.0.0.1:5000/api/pw/GraphData?sector=" + trig + "&date=" + currDate;
@@ -379,6 +400,31 @@ $(document).ready(function() {
             $(".graphtitle").css('visibility','visible');
             $('.yeet').css('visibility','visible');
         });
+        $(".tableentry").remove();
+        var call = "http://127.0.0.1:5000/api/pw/PriceEffect?sector=" + trig + "&date=" + currDate;
+        getStats(call,function(result){
+            var obj = JSON.parse(result);
+            if (obj["short"] > 0) {
+                $(".tabledata").append("<td class=\"tableentry text-success\">" + obj["short"] + "</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + obj["short"] + "</td>");
+            }
+             if (obj["short"] > 0) {
+                 $(".tabledata").append("<td class=\"tableentry text-success\">"+obj["medium"]+"</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + obj["medium"] + "</td>");
+            }
+             if (obj["short"] > 0) {
+                $(".tabledata").append("<td class=\"tableentry text-success\">" + obj["long"] + "</td>");
+            }else {
+                 $(".tabledata").append("<td class=\"tableentry text-danger\">" + obj["long"] + "</td>");
+            }
+
+
+        });
+
+
+
         var call = "http://127.0.0.1:5000/api/pw/PostSentiment?sector=" + trig + "&date=" + currDate;
         getFB(call,function(result){
             var obj = JSON.parse(result);
@@ -395,6 +441,7 @@ $(document).ready(function() {
                 $('.yeet').css('visibility','visible');
             }
         });
+        $(".table").css('visibility','visible');
 
     });
 
