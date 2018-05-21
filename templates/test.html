@@ -45,9 +45,17 @@ body {
 .graph{
     visibility: hidden;
 }
-.selectevent{
+.selectevent {
     text-align: center;
 }
+.headings{
+     visibility: hidden;
+    text-align: center;
+}
+    .cards{
+        text-align: center;
+    }
+
 </style>
 
     <title>Title</title>
@@ -71,9 +79,9 @@ body {
 <div class="container align-middle">
     <h3 class="selectevent" >Select a political event to view its effects on stock price</h3>
         <br>
+
         <br>
-        <br>
-    <div class="col-lg-4  mx-auto">
+    <div class="col-lg-5  mx-auto">
 
     <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,11 +93,21 @@ body {
     </div>
     <br>
     <p class="col-lg-9  mx-auto" id="EventDesc"></p>
+
+ <h3 class="headings" >Relevant News Articles</h3>
+    <br>
+<div class="card-deck news">
+</div>
+<br>
+    <br>
     <iframe width="420" height="600"
 src="" class="sector" id="video">
 </iframe>
+<br>
+
       <h3 class="selectsect" >Select a sector to see the effects from the event</h3>
     <br>
+
 
 
     <button type="button" class="btn btn-outline-primary mb-3 sector" id="Mining">Mining</button>
@@ -169,6 +187,17 @@ var currEvent = null;
 var currDate = null;
 $(document).ready(function() {
 
+    function getFormattedDate(date) {
+      var year = date.getFullYear();
+
+      var month =  (1 + date.getMonth()).toString();
+      month = month.length > 1 ? month : '0' + month;
+
+      var day = date.getDate().toString();
+      day = day.length > 1 ? day : '0' + day;
+
+      return year + '-' + month + '-' + day;
+    }
     function getEvents(handle) {
         return $.ajax({
             type: "GET",
@@ -187,7 +216,7 @@ $(document).ready(function() {
         var obj = JSON.parse(result);
         for (index in obj.events) {
             $('#droppo').append("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "<\/a>");
-            console.log(("<a class=\"dropdown-item\" href=\"\#\"" + " id=\"" + obj.events[index]["name"] + "\">" + obj.events[index]["name"] + "</a>"));
+
         }
 
     });
@@ -204,15 +233,29 @@ $(document).ready(function() {
         });
     }
 
+    function getNews(url,handle) {
+        return $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: url,
+            success: function (result) {
+                stats = result;
+                handle(result);
+
+            }
+        });
+    }
     $(document).on('click','a', function(){
         $(".sector").css('visibility','visible');
         $(".selectsect").css('visibility','visible');
         $(".graphtitle").css('visibility','hidden');
+        $(".headings").css('visibility','visible');
         $(".graph").css('visibility','hidden');
         $(".yeet").css('visibility','hidden');
         var trig = event.target.id;
         currEvent = event.target.id;
         var jsonResponse = JSON.parse(response);
+
         for (index in jsonResponse.events){
             if (jsonResponse.events[index]["name"] == trig){
                 $("#EventDesc").text(jsonResponse.events[index]["description"]);
@@ -221,6 +264,45 @@ $(document).ready(function() {
                 currDate = jsonResponse.events[index]["date"];
             }
         }
+
+        var eventDate = new Date(currDate);
+        var last20 = new Date(eventDate);
+        var next20 = new Date(eventDate);
+        last20.setDate(last20.getDate() - 60);
+        next20.setDate(next20.getDate() + 60);
+        last20 = getFormattedDate(last20);
+        next20 = getFormattedDate(next20);
+        var call = "http://127.0.0.1:5000/api/pw/NewsArticles?query=" + trig + "&from_date=" + last20 + "&to_date=" + next20;
+        console.log(call);
+        $( ".newslink" ).remove();
+         $( ".card" ).remove();
+        getNews(call,function(result){
+            var jsonResponse = JSON.parse(result);
+            var three = 0;
+            console.log(jsonResponse);
+            for (index in jsonResponse.response["results"]){
+                if(three != 3) {
+                    console.log(jsonResponse.response["results"][index]["webTitle"]);
+                    $('.news').append("<a target=\"_blank\" href=\""+jsonResponse.response["results"][index]["webUrl"]+"\" <div class=\"card\">\n" +
+                        "    <img class=\"card-img-top\" src=\"../static/news.png\" alt=\"No image\">\n" +
+                        "    <div class=\"card-body\">\n" +
+                        "      <h5 class=\"card-title\">" + jsonResponse.response["results"][index]["webTitle"]  + "</h5>\n" +
+                        "    </div>\n" +
+                            " <div class=\"card-footer\">\n" +
+                        "      <small class=\"text-muted\">"+jsonResponse.response["results"][index]["webPublicationDate"]+"</small>\n" +
+                        "    </div>"+
+                        "  </div>"+
+                            "</a>"
+                    );
+
+                    three++;
+                } else {
+                    break
+                }
+            }
+
+        });
+
 
     });
 
@@ -315,17 +397,7 @@ $(document).ready(function() {
         });
 
     });
-    function getFormattedDate(date) {
-      var year = date.getFullYear();
 
-      var month =  (1 + date.getMonth()).toString();
-      month = month.length > 1 ? month : '0' + month;
-
-      var day = date.getDate().toString();
-      day = day.length > 1 ? day : '0' + day;
-
-      return year + '-' + month + '-' + day;
-    }
     function setEmoji(value,imageid,cap) {
         if (value <= (-0.4)){
             $("#"+imageid).attr("src","../static/20.jpg");
