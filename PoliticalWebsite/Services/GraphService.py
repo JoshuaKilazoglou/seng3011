@@ -19,6 +19,13 @@ class GraphService:
             sector_data = list(filter(lambda x: x['Name'] == sector, sectors))[0]
 
             data = []
+            result = {
+                "graphData": [],
+                "short": 0,
+                "medium": 0,
+                "long": 0
+            }
+            companies_included = 0
 
             for company in sector_data['Companies']:
                 symbol = company['symbol']
@@ -35,26 +42,58 @@ class GraphService:
                     date = date + timedelta(days=1)
 
                 try:
-                    before_data = self.get_surrounding_days(series, date, before=True)
+                    before_data = self.get_surrounding_days(series, date, True, 20)
                     day_of = float(series[date.strftime('%Y-%m-%d')]['4. close'])
-                    after_data = self.get_surrounding_days(series, date, before=False)
+                    after_data = self.get_surrounding_days(series, date, False, 20)
+
+                    long_before = self.get_surrounding_days(series, date, True, 365)
+                    long_after = self.get_surrounding_days(series, date, False, 365)
+
+                    long_increase = self.percentage_difference(self.average_value(long_before),
+                                                               self.average_value(long_after))
+                    medium_increase = self.percentage_difference(self.average_value(long_before[335:]),
+                                                                 self.average_value(long_after[:395]))
+                    short_increase = self.percentage_difference(self.average_value(long_before[362:]),
+                                                                self.average_value(long_after[:368]))
+
+                    all_data = before_data + [day_of] + after_data
+                    normalized_data = self.normalize_list(all_data)
+                    data.append(normalized_data)
+
+                    result["short"] += short_increase * 100  # as a percentage
+                    result["medium"] += medium_increase * 100
+                    result["long"] += long_increase * 100
+                    companies_included += 1
                 except Exception as ex:
                     print(ex, file=sys.stdout)
                     continue
 
-                all_data = before_data + [day_of] + after_data
-                normalized_data = self.normalize_list(all_data)
-                data.append(normalized_data)
+            result["graphData"] = self.average_lists(data)
+            result["short"] /= companies_included
+            result["medium"] /= companies_included
+            result["long"] /= companies_included
 
-            return self.average_lists(data)
+            return result
 
-    def get_surrounding_days(self, series, date, before):
+    def percentage_difference(self, a, b):
+        return abs(a - b) / ((a+b)/ 2)
+
+    def average_value(self, list):
+        length = len(list)
+        if length == 0:
+            return 0
+        total = 0
+        for i in range(0, length):
+            total += list[i]
+        return total / length
+
+    def get_surrounding_days(self, series, date, before, days):
         modifier = 1 if before == True else -1
 
         curr_company_data = []
         day_count = 0
         day_difference = 0
-        while day_count < 20:
+        while day_count < days:
             day_difference += 1 * modifier
             current_date = date - timedelta(days=day_difference)
             dt_string = current_date.strftime('%Y-%m-%d')
